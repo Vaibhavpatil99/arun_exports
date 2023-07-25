@@ -1,2 +1,2 @@
 pip install -r requirements.txt
-python310 manage.py collectstatic
+python3.10.5 manage.py collectstatic
