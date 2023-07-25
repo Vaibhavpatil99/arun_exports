@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+<style>
+  .backg:hover {
+    /* border-radius: 50px; */
+    /* background: #e0e0e0; */
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 14px 14px 22px #b0b0b0,
+      -14px -14px 22px #ffffff;
+
+    transition: .2s;
+  }
+
+
+
+  .inputbox {
+  position: relative;
+  width: 196px;
+}
+
+.inputbox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  color: white;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 10px 10px;
+  font-size: 1em;
+  color: #8f8f8f;
+  letter-spacing: 00.05em;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.inputbox input:valid ~span,
+.inputbox input:focus ~span {
+  color: #a56a44;
+  transform: translateX(-10px) translateY(-34px);
+  font-size: 0,75em;
+}
+
+.inputbox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #a56a44;
+  border-radius: 4px;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.inputbox input:valid ~i,
+.inputbox input:focus ~i {
+  height: 44px;
+}
+
+.selectBox {
+  position: relative;
+  width: 196px;
+}
+
+.selectBox select{
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  color: #a56a44;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+.selectBox select option:hover{
+  /* background-color: aqua; */
+  background-color: #a56a44;
+  color: white;
+}
+.selectBox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 10px 10px;
+  font-size: 1em;
+  color: #8f8f8f;
+  letter-spacing: 00.05em;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.selectBox select:valid ~span,
+.selectBox select:focus ~span {
+  color: #a56a44;
+  transform: translateX(-10px) translateY(-34px);
+  font-size: 0,75em;
+}
+
+.selectBox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #a56a44;
+  border-radius: 4px;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* 
+.selectBox select:valid ~i,
+.selectBox select:focus ~i {
+  height: 44px;
+} */
+</style>
+<!-- <link rel="stylesheet" href="{% static 'css/cards.css' %}"> -->
+
+<section class="product-section bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <h1 class="" style="color: #a56a44;">PRODUCTS</h1>
+      <h2 class="" style="color: #a56a44;">FILTER</h2>
+    </div>
+    <div class="d-flex justify-content-end">
+      <div class="selectBox mx-2">
+        <!-- <label for="">select Category</label> -->
+        <select name="category" id="dataCategory" class="" onchange="searchCategory()">
+          <option class="opt" value="">select Category</option>
+          <option class="opt" value="Chair">Chair</option>
+          <option class="opt" value="Table">Table</option>
+          <option class="opt" value="Teapoy">Teapoy</option>
+          <option class="opt" value="Cupboard">Cupboard</option>
+          <option class="opt" value="Pooja Mandir">Pooja Mandir</option>
+          <!-- Add more options as needed -->
+        </select>
+        <!-- <span for="">select Category</span> -->
+        <i></i>
+
+      </div>
+      <!-- <div  class="col-6 form-group d-flex">
+        <label for="">Search</label>
+        <input id="searchInput" type="text" class="form-control" placeholder="Search" onInput="search()" />
+      </div>
+       -->
+
+      <div class="inputbox">
+        <input required="required" id="searchInput" onInput="search()" type="text" />
+        <span>Search</span>
+        <i></i>
+      </div>
+
+
+
+
+    </div>
+    <hr>
+    <div class="row" id="dataList">
+      {% for e in data %}
+
+      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
+        {% with e.images.first as first_image %}
+        {% if first_image %}
+        <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
+        {% endif %}
+        {% endwith %}
+
+
+        <div class="card-body">
+          <h5 class="card-title">{{e.name}}</h5>
+          <!-- <p class="card-text">{{e.desc}}</p> -->
+        </div>
+        <a href="/product/{{e.id}}" class="btn text-light " style="background: #a56a44;">View</a>
+      </div>
+
+
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+
+
+
+</section>
+
+
+
+
+<script>
+
+
+  let searchInput = document.getElementById("searchInput");
+
+
+  function search() {
+    var data
+    $.ajax({
+      type: "GET",
+      url: "/jsonProductdata",
+      success: function (res) {
+        data = res;
+        console.log("data", data);
+
+
+        var searchInputVal = searchInput.value;
+        console.log(searchInputVal)
+        let filteredData = data.products.filter((e) => {
+          return e.name.includes(searchInputVal);
+        });
+        let showInHtml = filteredData.map((e, index) => {
+          return `
+        
+
+      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
+        <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+
+
+        <div class="card-body">
+          <h5 class="card-title">${e.name}</h5>
+          
+        </div>
+        <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+      </div>
+
+
+
+
+
+        `;
+        }).join('');
+        var listDiv = document.getElementById("dataList");
+        listDiv.innerHTML = showInHtml;
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+
+  }
+
+
+
+  function searchCategory(){
+    var category = document.getElementById("dataCategory");
+    console.log(category.value);
+
+    var data
+    $.ajax({
+      type: "GET",
+      url: "/jsonProductdata",
+      success: function (res) {
+        data = res;
+        console.log("data", data);
+
+
+        var searchInputVal = searchInput.value;
+        console.log(searchInputVal)
+        let filteredData = data.products.filter((e) => {
+          return e.category==category.value;
+        });
+        let showInHtml = filteredData.map((e, index) => {
+          return `
+        
+
+      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
+        <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+
+
+        <div class="card-body">
+          <h5 class="card-title">${e.name}</h5>
+          
+        </div>
+        <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+      </div>
+
+
+
+
+
+        `;
+        }).join('');
+        var listDiv = document.getElementById("dataList");
+        listDiv.innerHTML = showInHtml;
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+
+  }
+</script>
+{% endblock %}

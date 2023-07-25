@@ -1,0 +1,1372 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Pontano+Sans");
+
+    .container {
+        margin: auto;
+        padding: 0 1rem;
+        max-width: 71.25rem;
+        width: 100%;
+    }
+
+    .grid {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
+    }
+
+    .grid>[class*=column-] {
+        display: block;
+    }
+
+    .first {
+        order: -1;
+    }
+
+    .last {
+        order: 12;
+    }
+
+    .align-top {
+        align-items: start;
+    }
+
+    .align-center {
+        align-items: center;
+    }
+
+    .align-bottom {
+        align-items: end;
+    }
+
+    .column-xs-1 {
+        flex-basis: 8.3333333333%;
+        max-width: 8.3333333333%;
+    }
+
+    .column-xs-2 {
+        flex-basis: 16.6666666667%;
+        max-width: 16.6666666667%;
+    }
+
+    .column-xs-3 {
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+
+    .column-xs-4 {
+        flex-basis: 33.3333333333%;
+        max-width: 33.3333333333%;
+    }
+
+    .column-xs-5 {
+        flex-basis: 41.6666666667%;
+        max-width: 41.6666666667%;
+    }
+
+    .column-xs-6 {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .column-xs-7 {
+        flex-basis: 58.3333333333%;
+        max-width: 58.3333333333%;
+    }
+
+    .column-xs-8 {
+        flex-basis: 66.6666666667%;
+        max-width: 66.6666666667%;
+    }
+
+    .column-xs-9 {
+        flex-basis: 75%;
+        max-width: 75%;
+    }
+
+    .column-xs-10 {
+        flex-basis: 83.3333333333%;
+        max-width: 83.3333333333%;
+    }
+
+    .column-xs-11 {
+        flex-basis: 91.6666666667%;
+        max-width: 91.6666666667%;
+    }
+
+    .column-xs-12 {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    @media (min-width: 48rem) {
+        .column-sm-1 {
+            flex-basis: 8.3333333333%;
+            max-width: 8.3333333333%;
+        }
+
+        .column-sm-2 {
+            flex-basis: 16.6666666667%;
+            max-width: 16.6666666667%;
+        }
+
+        .column-sm-3 {
+            flex-basis: 25%;
+            max-width: 25%;
+        }
+
+        .column-sm-4 {
+            flex-basis: 33.3333333333%;
+            max-width: 33.3333333333%;
+        }
+
+        .column-sm-5 {
+            flex-basis: 41.6666666667%;
+            max-width: 41.6666666667%;
+        }
+
+        .column-sm-6 {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+
+        .column-sm-7 {
+            flex-basis: 58.3333333333%;
+            max-width: 58.3333333333%;
+        }
+
+        .column-sm-8 {
+            flex-basis: 66.6666666667%;
+            max-width: 66.6666666667%;
+        }
+
+        .column-sm-9 {
+            flex-basis: 75%;
+            max-width: 75%;
+        }
+
+        .column-sm-10 {
+            flex-basis: 83.3333333333%;
+            max-width: 83.3333333333%;
+        }
+
+        .column-sm-11 {
+            flex-basis: 91.6666666667%;
+            max-width: 91.6666666667%;
+        }
+
+        .column-sm-12 {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media (min-width: 62rem) {
+        .column-md-1 {
+            flex-basis: 8.3333333333%;
+            max-width: 8.3333333333%;
+        }
+
+        .column-md-2 {
+            flex-basis: 16.6666666667%;
+            max-width: 16.6666666667%;
+        }
+
+        .column-md-3 {
+            flex-basis: 25%;
+            max-width: 25%;
+        }
+
+        .column-md-4 {
+            flex-basis: 33.3333333333%;
+            max-width: 33.3333333333%;
+        }
+
+        .column-md-5 {
+            flex-basis: 41.6666666667%;
+            max-width: 41.6666666667%;
+        }
+
+        .column-md-6 {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+
+        .column-md-7 {
+            flex-basis: 58.3333333333%;
+            max-width: 58.3333333333%;
+        }
+
+        .column-md-8 {
+            flex-basis: 66.6666666667%;
+            max-width: 66.6666666667%;
+        }
+
+        .column-md-9 {
+            flex-basis: 75%;
+            max-width: 75%;
+        }
+
+        .column-md-10 {
+            flex-basis: 83.3333333333%;
+            max-width: 83.3333333333%;
+        }
+
+        .column-md-11 {
+            flex-basis: 91.6666666667%;
+            max-width: 91.6666666667%;
+        }
+
+        .column-md-12 {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media (min-width: 75rem) {
+        .column-lg-1 {
+            flex-basis: 8.3333333333%;
+            max-width: 8.3333333333%;
+        }
+
+        .column-lg-2 {
+            flex-basis: 16.6666666667%;
+            max-width: 16.6666666667%;
+        }
+
+        .column-lg-3 {
+            flex-basis: 25%;
+            max-width: 25%;
+        }
+
+        .column-lg-4 {
+            flex-basis: 33.3333333333%;
+            max-width: 33.3333333333%;
+        }
+
+        .column-lg-5 {
+            flex-basis: 41.6666666667%;
+            max-width: 41.6666666667%;
+        }
+
+        .column-lg-6 {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+
+        .column-lg-7 {
+            flex-basis: 58.3333333333%;
+            max-width: 58.3333333333%;
+        }
+
+        .column-lg-8 {
+            flex-basis: 66.6666666667%;
+            max-width: 66.6666666667%;
+        }
+
+        .column-lg-9 {
+            flex-basis: 75%;
+            max-width: 75%;
+        }
+
+        .column-lg-10 {
+            flex-basis: 83.3333333333%;
+            max-width: 83.3333333333%;
+        }
+
+        .column-lg-11 {
+            flex-basis: 91.6666666667%;
+            max-width: 91.6666666667%;
+        }
+
+        .column-lg-12 {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+
+    @supports (display: grid) {
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto;
+        }
+
+        .grid>[class*=column-] {
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .column-xs-1 {
+            grid-column-start: span 1;
+            grid-column-end: span 1;
+        }
+
+        .column-xs-2 {
+            grid-column-start: span 2;
+            grid-column-end: span 2;
+        }
+
+        .column-xs-3 {
+            grid-column-start: span 3;
+            grid-column-end: span 3;
+        }
+
+        .column-xs-4 {
+            grid-column-start: span 4;
+            grid-column-end: span 4;
+        }
+
+        .column-xs-5 {
+            grid-column-start: span 5;
+            grid-column-end: span 5;
+        }
+
+        .column-xs-6 {
+            grid-column-start: span 6;
+            grid-column-end: span 6;
+        }
+
+        .column-xs-7 {
+            grid-column-start: span 7;
+            grid-column-end: span 7;
+        }
+
+        .column-xs-8 {
+            grid-column-start: span 8;
+            grid-column-end: span 8;
+        }
+
+        .column-xs-9 {
+            grid-column-start: span 9;
+            grid-column-end: span 9;
+        }
+
+        .column-xs-10 {
+            grid-column-start: span 10;
+            grid-column-end: span 10;
+        }
+
+        .column-xs-11 {
+            grid-column-start: span 11;
+            grid-column-end: span 11;
+        }
+
+        .column-xs-12 {
+            grid-column-start: span 12;
+            grid-column-end: span 12;
+        }
+
+        @media (min-width: 48rem) {
+            .column-sm-1 {
+                grid-column-start: span 1;
+                grid-column-end: span 1;
+            }
+
+            .column-sm-2 {
+                grid-column-start: span 2;
+                grid-column-end: span 2;
+            }
+
+            .column-sm-3 {
+                grid-column-start: span 3;
+                grid-column-end: span 3;
+            }
+
+            .column-sm-4 {
+                grid-column-start: span 4;
+                grid-column-end: span 4;
+            }
+
+            .column-sm-5 {
+                grid-column-start: span 5;
+                grid-column-end: span 5;
+            }
+
+            .column-sm-6 {
+                grid-column-start: span 6;
+                grid-column-end: span 6;
+            }
+
+            .column-sm-7 {
+                grid-column-start: span 7;
+                grid-column-end: span 7;
+            }
+
+            .column-sm-8 {
+                grid-column-start: span 8;
+                grid-column-end: span 8;
+            }
+
+            .column-sm-9 {
+                grid-column-start: span 9;
+                grid-column-end: span 9;
+            }
+
+            .column-sm-10 {
+                grid-column-start: span 10;
+                grid-column-end: span 10;
+            }
+
+            .column-sm-11 {
+                grid-column-start: span 11;
+                grid-column-end: span 11;
+            }
+
+            .column-sm-12 {
+                grid-column-start: span 12;
+                grid-column-end: span 12;
+            }
+        }
+
+        @media (min-width: 62rem) {
+            .column-md-1 {
+                grid-column-start: span 1;
+                grid-column-end: span 1;
+            }
+
+            .column-md-2 {
+                grid-column-start: span 2;
+                grid-column-end: span 2;
+            }
+
+            .column-md-3 {
+                grid-column-start: span 3;
+                grid-column-end: span 3;
+            }
+
+            .column-md-4 {
+                grid-column-start: span 4;
+                grid-column-end: span 4;
+            }
+
+            .column-md-5 {
+                grid-column-start: span 5;
+                grid-column-end: span 5;
+            }
+
+            .column-md-6 {
+                grid-column-start: span 6;
+                grid-column-end: span 6;
+            }
+
+            .column-md-7 {
+                grid-column-start: span 7;
+                grid-column-end: span 7;
+            }
+
+            .column-md-8 {
+                grid-column-start: span 8;
+                grid-column-end: span 8;
+            }
+
+            .column-md-9 {
+                grid-column-start: span 9;
+                grid-column-end: span 9;
+            }
+
+            .column-md-10 {
+                grid-column-start: span 10;
+                grid-column-end: span 10;
+            }
+
+            .column-md-11 {
+                grid-column-start: span 11;
+                grid-column-end: span 11;
+            }
+
+            .column-md-12 {
+                grid-column-start: span 12;
+                grid-column-end: span 12;
+            }
+        }
+
+        @media (min-width: 75rem) {
+            .column-lg-1 {
+                grid-column-start: span 1;
+                grid-column-end: span 1;
+            }
+
+            .column-lg-2 {
+                grid-column-start: span 2;
+                grid-column-end: span 2;
+            }
+
+            .column-lg-3 {
+                grid-column-start: span 3;
+                grid-column-end: span 3;
+            }
+
+            .column-lg-4 {
+                grid-column-start: span 4;
+                grid-column-end: span 4;
+            }
+
+            .column-lg-5 {
+                grid-column-start: span 5;
+                grid-column-end: span 5;
+            }
+
+            .column-lg-6 {
+                grid-column-start: span 6;
+                grid-column-end: span 6;
+            }
+
+            .column-lg-7 {
+                grid-column-start: span 7;
+                grid-column-end: span 7;
+            }
+
+            .column-lg-8 {
+                grid-column-start: span 8;
+                grid-column-end: span 8;
+            }
+
+            .column-lg-9 {
+                grid-column-start: span 9;
+                grid-column-end: span 9;
+            }
+
+            .column-lg-10 {
+                grid-column-start: span 10;
+                grid-column-end: span 10;
+            }
+
+            .column-lg-11 {
+                grid-column-start: span 11;
+                grid-column-end: span 11;
+            }
+
+            .column-lg-12 {
+                grid-column-start: span 12;
+                grid-column-end: span 12;
+            }
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Pontano Sans", sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        color: #888;
+        background: #fff;
+        text-rendering: optimizeLegibility;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    ul li {
+        margin: 0 1.75rem 0 0;
+    }
+
+    a {
+        color: #888;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    a:hover {
+        color: #333;
+    }
+
+    a.active {
+        color: #333;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: #333;
+        font-weight: normal;
+        margin: 1.75rem 0 1rem 0;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2.125rem;
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+        margin: 1rem 0 0.5rem 0;
+    }
+
+    section {
+        display: block;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+
+    nav {
+        display: block;
+    }
+
+    nav li {
+        font-size: 1.125rem;
+        margin: 0;
+    }
+
+    .flex-nav ul {
+        position: absolute;
+        z-index: 1;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        display: none;
+        width: 100%;
+        left: 0;
+        padding: 1rem;
+        background: #fff;
+        text-align: center;
+    }
+
+    .flex-nav ul.active {
+        display: flex;
+    }
+
+    .flex-nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .toggle-nav {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 1.125rem;
+        line-height: 1.7;
+        margin: 1rem 0;
+    }
+
+    .toggle-nav i {
+        font-size: 1.5rem;
+        line-height: 1.4;
+        margin: 0 0 0 0.5rem;
+    }
+
+    #highlight {
+        color: #333;
+        font-size: 1.125rem;
+        text-transform: uppercase;
+    }
+
+    .price {
+        margin: 0;
+    }
+
+    .breadcrumb-list {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 1rem 0 0 0;
+        list-style: none;
+    }
+
+    .breadcrumb-list li {
+        font-size: 0.85rem;
+        letter-spacing: 0.125rem;
+        text-transform: uppercase;
+    }
+
+    .breadcrumb-item.active {
+        color: #333;
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        content: "/";
+        display: inline-block;
+        padding: 0 0.5rem;
+        color: #d5d5d5;
+    }
+
+    .description {
+        border-top: 0.0625rem solid #e3dddd;
+        margin: 2rem 0;
+        padding: 1rem 0 0 0;
+    }
+
+    .add-to-cart {
+        position: relative;
+        display: inline-block;
+        background: #3e3e3f;
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        padding: 1.25rem 2.5rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        transform: translateZ(0);
+        transition: color 0.3s ease;
+        letter-spacing: 0.0625rem;
+    }
+
+    .add-to-cart:hover::before {
+        transform: scaleX(1);
+    }
+
+    .add-to-cart::before {
+        position: absolute;
+        content: "";
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #565657;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        transition: transform 0.3s ease-out;
+    }
+
+    .container {
+        margin: auto;
+        padding: 0 1rem;
+        max-width: 75rem;
+        width: 100%;
+    }
+
+    .grid>[class*=column-] {
+        padding: 1rem;
+    }
+
+    .grid.menu,
+    .grid.product {
+        border-bottom: 0.0625rem solid #e3dddd;
+    }
+
+    .grid.menu>[class*=column-] {
+        padding: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    .grid.product {
+        padding: 0 0 1.5rem 0;
+    }
+
+    .grid.second-nav>[class*=column-] {
+        padding: 0.5rem 1rem;
+    }
+
+    footer {
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .product-image {
+        display: none;
+    }
+
+    .image-list li {
+        margin: 0;
+    }
+
+    @media (min-width: 62rem) {
+
+        .product-image img,
+        .image-list img {
+            width: 100%;
+        }
+
+        .product-image {
+            display: block;
+        }
+
+        .product-image img {
+            height: 52vh;
+        }
+
+        .product-image img.active {
+            display: block;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .image-list {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .image-list li {
+            margin: 0 0.75rem 0 0;
+            flex-basis: 100%;
+        }
+
+        .image-list li:nth-child(3) {
+            margin: 0;
+        }
+
+        .image-list img {
+            height: 10rem;
+            width: 100%;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-list img:hover {
+            opacity: 0.7;
+        }
+
+        nav ul {
+            justify-content: flex-end;
+        }
+
+        .toggle-nav {
+            display: none;
+        }
+
+        .flex-nav {
+            display: block;
+        }
+
+        .flex-nav ul {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            justify-content: flex-end;
+        }
+
+        .flex-nav ul li {
+            font-size: 1.125rem;
+            margin: 0 1.5rem 0 0;
+        }
+
+        .flex-nav ul li:nth-child(4) {
+            margin: 0;
+        }
+    }
+
+    @-webkit-keyframes fadeImg {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeImg {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        /* max-width: 350px; */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .message {
+        color: rgba(88, 87, 87, 0.822);
+        font-size: 14px;
+    }
+
+    .flex {
+        display: flex;
+        width: 100%;
+        gap: 6px;
+    }
+
+    .form label {
+        position: relative;
+    }
+
+    .form label .input {
+        width: 100%;
+        padding: 10px 10px 20px 10px;
+        outline: 0;
+        border: 1px solid rgba(105, 105, 105, 0.397);
+        border-radius: 5px;
+    }
+
+    .form label .input+span {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        color: grey;
+        font-size: 0.9em;
+        cursor: text;
+        transition: 0.3s ease;
+    }
+
+    .form label .input:placeholder-shown+span {
+        top: 15px;
+        font-size: 0.9em;
+    }
+
+    .form label .input:focus+span,
+    .form label .input:valid+span {
+        top: 30px;
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+
+    .form label .input:valid+span {
+        color: green;
+    }
+
+    .input01 {
+        width: 100%;
+        padding: 10px 10px 20px 10px;
+        outline: 0;
+        border: 1px solid rgba(105, 105, 105, 0.397);
+        border-radius: 5px;
+    }
+
+    .form label .input01+span {
+        position: absolute;
+        left: 10px;
+        top: 50px;
+        color: grey;
+        font-size: 0.9em;
+        cursor: text;
+        transition: 0.3s ease;
+    }
+
+    .form label .input01:placeholder-shown+span {
+        top: 40px;
+        font-size: 0.9em;
+    }
+
+    .form label .input01:focus+span,
+    .form label .input01:valid+span {
+        top: 50px;
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+
+    .form label .input01:valid+span {
+        color: green;
+    }
+
+    .fancy {
+        background-color: transparent;
+        border: 2px solid #cacaca;
+        border-radius: 0px;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 390;
+        letter-spacing: 2px;
+        margin: 0;
+        outline: none;
+        overflow: visible;
+        padding: 8px 30px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        text-transform: none;
+        transition: all 0.3s ease-in-out;
+        user-select: none;
+        font-size: 13px;
+    }
+
+    .fancy::before {
+        content: " ";
+        width: 1.7rem;
+        height: 2px;
+        background: #cacaca;
+        top: 50%;
+        left: 1.5em;
+        position: absolute;
+        transform: translateY(-50%);
+        transform: translateX(230%);
+        transform-origin: center;
+        transition: background 0.3s linear, width 0.3s linear;
+    }
+
+    .fancy .text {
+        font-size: 1.125em;
+        line-height: 1.33333em;
+        padding-left: 2em;
+        display: block;
+        text-align: left;
+        transition: all 0.3s ease-in-out;
+        text-transform: lowercase;
+        text-decoration: none;
+        color: #818181;
+        transform: translateX(30%);
+    }
+
+    .fancy .top-key {
+        height: 2px;
+        width: 1.5625rem;
+        top: -2px;
+        left: 0.625rem;
+        position: absolute;
+        background: white;
+        transition: width 0.5s ease-out, left 0.3s ease-out;
+    }
+
+    .fancy .bottom-key-1 {
+        height: 2px;
+        width: 1.5625rem;
+        right: 1.875rem;
+        bottom: -2px;
+        position: absolute;
+        background: white;
+        transition: width 0.5s ease-out, right 0.3s ease-out;
+    }
+
+    .fancy .bottom-key-2 {
+        height: 2px;
+        width: 0.625rem;
+        right: 0.625rem;
+        bottom: -2px;
+        position: absolute;
+        background: white;
+        transition: width 0.5s ease-out, right 0.3s ease-out;
+    }
+
+    .fancy:hover {
+        color: white;
+        background: #cacaca;
+        /* background: #a56a44; */
+    }
+
+    .fancy:hover::before {
+        width: 1.5rem;
+        background: white;
+    }
+
+    .fancy:hover .text {
+        color: white;
+        padding-left: 1.5em;
+    }
+
+    .fancy:hover .top-key {
+        left: -2px;
+        width: 0px;
+    }
+
+    .fancy:hover .bottom-key-1,
+    .fancy:hover .bottom-key-2 {
+        right: 0;
+        width: 0;
+    }
+</style>
+
+
+<section class="product-section">
+    <div class="container">
+        <!-- Product content goes here -->
+        <main>
+            <div class="container">
+                <!-- <div class="grid second-nav">
+                    <div class="column-xs-12 my-3 ">
+                        <nav>
+                            <ol class="breadcrumb-list">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
+                                <li class="breadcrumb-item active">Bonsai</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div> -->
+                <div class="grid product my-3">
+                    <div class="column-xs-12 column-md-7 ">
+                        <div class="product-gallery">
+                            <div class="product-image">
+                                <img class="active" src="{{ data.0.images.all.0.image.url }}">
+                            </div>
+                            <ul class="image-list">
+                                {% for e in data.0.images.all %}
+                                <li class="image-item"><img src="{{ e.image.url }}"></li>
+                                {% endfor %}
+                                <!-- <li class="image-item"><img src="https://source.unsplash.com/VgbUxvW3gS4"></li> -->
+                                <!-- <li class="image-item"><img src="https://source.unsplash.com/5WbYFH0kf_8"></li> -->
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column-xs-12 column-md-5">
+                        <h1>{{ data.0.name}}</h1>
+                        <!-- <h2>$19.99</h2> -->
+
+                        <!-- {% for e in data %}
+                        {% for i in data.0.image_paths %}
+                        <p>{{i}}</p>
+                        {% endfor %}
+                        {% endfor %} -->
+                        <div class="description">
+                            <p>{{ data.0.desc}}</p>
+
+                        </div>
+                        <button class="add-to-cart" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalCenter">Enquire</button>
+                    </div>
+
+                </div>
+
+            </div>
+    </div>
+    </main>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 2p;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class=" close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+                <div class="modal-body m-0 p-0">
+                    <form class="form" method="POST" id="myForm" action="enquirySubmit">
+                        {% csrf_token %}
+
+                        <p>Enquiry form</p>
+                        {{ data.0.desc}}
+                        <div class="flex">
+                            <label>
+                                <input required="" placeholder="" type="text" class="input" id="first_name"
+                                    name="first_name">
+                                <span>first name</span>
+                            </label>
+
+                            <label>
+                                <input required="" placeholder="" type="text" class="input" id="last_name"
+                                    name="last_name">
+                                <span>last name</span>
+                            </label>
+                        </div>
+
+                        <label>
+                            <input required="" placeholder="" type="email" class="input" id="email" name="email">
+                            <span>email</span>
+                        </label>
+
+                        <label>
+                            <input required="" type="tel" placeholder="" class="input" id="contact_no"
+                                name="contact_no">
+                            <span>contact number</span>
+                        </label>
+                        <label>
+                            <textarea required="" rows="3" placeholder="" class="input01" id="message"
+                                name="message"></textarea>
+                            <span>message</span>
+                        </label>
+
+                        <button type="submit" class="fancy">
+                            <span class="top-key"></span>
+                            <span class="text">submit</span>
+                            <!-- <span onclick="sendEnquiryData()" class="text">submit</span> -->
+                            <span class="bottom-key-1"></span>
+                            <span class="bottom-key-2"></span>
+                        </button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{% if message %}
+<!-- {% for message in error_message %} -->
+<script>
+    console.log("{{ message }}")
+    swal.fire('{{message}}', {
+        icon: "warning",
+        button: "ok",
+        closeOnClickOutside: false,
+    })
+
+</script>
+<!-- {% endfor %} -->
+{% endif %}
+
+
+<script>
+    const activeImage = document.querySelector(".product-image .active");
+    const productImages = document.querySelectorAll(".image-list img");
+
+
+    function changeImage(e) {
+        activeImage.src = e.target.src;
+    }
+
+    function toggleNavigation() {
+        this.nextElementSibling.classList.toggle('active');
+    }
+
+    productImages.forEach(image => image.addEventListener("click", changeImage));
+
+    $(document).ready(function () {
+        $('#myForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Serialize the form data
+            var formData = $(this).serialize();
+
+            // Send AJAX request
+            $.ajax({
+                url: '/enquirySubmit/{{ data.0.id }}/', // Replace "/your-django-url/" with the actual URL to your Django view
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response); // Do something with the response data
+                    swal.fire(response.message, {
+                        icon: "success",
+                        button: "ok",
+                        closeOnClickOutside: false,
+                    })
+                },
+                error: function (xhr, status, error) {
+                    console.error('Request failed. Status:', xhr.status);
+                }
+            });
+        });
+    });
+
+
+
+    // function sendEnquiryData() {
+    //     console.log("Enquiry data");
+
+
+    //     if ($('#first_name').val() == "") {
+    //         Swal.fire({
+    //             title: 'Please Enter The first_name',
+    //             icon: "warning",
+    //             showDenyButton: false,
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Yes',
+    //             denyButtonText: `No `,
+    //         })
+    //     }
+
+    //     else if ($('#last_name').val() == "") {
+    //         Swal.fire({
+    //             title: 'Please Enter The last_name',
+    //             icon: "warning",
+    //             showDenyButton: false,
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Yes',
+    //             denyButtonText: `No `,
+    //         })
+    //     }
+    //     else if ($('#email').val() == "") {
+    //         Swal.fire({
+    //             title: 'Please Enter The email',
+    //             icon: "warning",
+    //             showDenyButton: false,
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Yes',
+    //             denyButtonText: `No `,
+    //         })
+    //     }
+    //     else if ($('#contact_no').val() == "") {
+    //         Swal.fire({
+    //             title: 'Please Enter The contact_no',
+    //             icon: "warning",
+    //             showDenyButton: false,
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Yes',
+    //             denyButtonText: `No `,
+    //         })
+    //     }
+    //     else if ($('#message').val() == "") {
+    //         Swal.fire({
+    //             title: 'Please Enter The message',
+    //             icon: "warning",
+    //             showDenyButton: false,
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Yes',
+    //             denyButtonText: `No `,
+    //         })
+    //     }
+    //     else {
+
+
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: '/enquirySubmit/',
+    //             data: {
+    //                 first_name: $('#first_name').val(),
+    //                 last_name: $('#last_name').val(),
+    //                 email: $('#email').val(),
+    //                 contact_no: $('#contact_no').val(),
+    //                 message: $('#message').val(),
+    //                 csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+    //             },
+    //             success: function (res) {
+    //                 console.log('res', res);
+    //                 location.reload();
+    //             },
+    //             error: function (error) {
+    //                 console.log('error', error);
+    //             },
+    //         });
+
+    //     }
+    // }
+
+
+
+
+</script>
+{% endblock %}
