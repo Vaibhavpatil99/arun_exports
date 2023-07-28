@@ -1093,10 +1093,32 @@
         right: 0;
         width: 0;
     }
+
+    /* CSS for the spinner container (same as before) */
+    #spinner-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 9999;
+    }
+
+    /* CSS for the spinner (same as before) */
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+
 </style>
 
 
 <section class="product-section">
+
     <div class="container">
         <!-- Product content goes here -->
         <main>
@@ -1149,6 +1171,13 @@
 
             </div>
     </div>
+
+    <div id="spinner-container">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     </main>
 
     </div>
@@ -1200,7 +1229,7 @@
                             <span>message</span>
                         </label>
 
-                        <button type="submit" class="fancy">
+                        <button type="submit" class="fancy" data-bs-dismiss="modal">
                             <span class="top-key"></span>
                             <span class="text">submit</span>
                             <!-- <span onclick="sendEnquiryData()" class="text">submit</span> -->
@@ -1253,22 +1282,23 @@
     }
 
     productImages.forEach(image => image.addEventListener("click", changeImage));
-
+    $('#spinner-container').hide();
     $(document).ready(function () {
         $('#myForm').submit(function (event) {
             event.preventDefault(); // Prevent default form submission
-
+            $('#spinner-container').show();
             // Serialize the form data
             var formData = $(this).serialize();
 
             // Send AJAX request
             $.ajax({
-                url: '/enquirySubmit/{{ data.0.id }}/', // Replace "/your-django-url/" with the actual URL to your Django view
+                url: '/enquirySubmit/{{ data.0.id }}/',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
                 success: function (response) {
-                    console.log(response); // Do something with the response data
+                    $('#spinner-container').hide();
+                    console.log(response);
                     swal.fire(response.message, {
                         icon: "success",
                         button: "ok",
@@ -1276,6 +1306,7 @@
                     })
                 },
                 error: function (xhr, status, error) {
+                    $('#spinner-container').hide();
                     console.error('Request failed. Status:', xhr.status);
                 }
             });

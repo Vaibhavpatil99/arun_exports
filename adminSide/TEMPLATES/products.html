@@ -5,6 +5,7 @@
 {% block title %}Product - Your Website{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <style>
   .backg:hover {
     /* border-radius: 50px; */
@@ -19,140 +20,215 @@
 
 
   .inputbox {
-  position: relative;
-  width: 196px;
-}
+    position: relative;
+    width: 196px;
+  }
 
-.inputbox input {
-  position: relative;
-  width: 100%;
-  padding: 20px 10px 10px;
-  background: transparent;
-  outline: none;
-  box-shadow: none;
-  border: none;
-  color: white;
-  font-size: 1em;
-  letter-spacing: 0.05em;
-  transition: 0.5s;
-  z-index: 10;
-}
+  .inputbox input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+  }
 
-.inputbox span {
-  position: absolute;
-  left: 0;
-  padding: 20px 10px 10px;
-  font-size: 1em;
-  color: #8f8f8f;
-  letter-spacing: 00.05em;
-  transition: 0.5s;
-  pointer-events: none;
-}
+  .inputbox span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    color: #8f8f8f;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+  }
 
-.inputbox input:valid ~span,
-.inputbox input:focus ~span {
-  color: #a56a44;
-  transform: translateX(-10px) translateY(-34px);
-  font-size: 0,75em;
-}
+  .inputbox input:valid~span,
+  .inputbox input:focus~span {
+    color: #a56a44;
+    transform: translateX(-10px) translateY(-34px);
+    font-size: 0, 75em;
+  }
 
-.inputbox i {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: #a56a44;
-  border-radius: 4px;
-  transition: 0.5s;
-  pointer-events: none;
-  z-index: 9;
-}
+  .inputbox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #a56a44;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+  }
 
-.inputbox input:valid ~i,
-.inputbox input:focus ~i {
-  height: 44px;
-}
+  .inputbox input:valid~i,
+  .inputbox input:focus~i {
+    height: 44px;
+  }
 
-.selectBox {
-  position: relative;
-  width: 196px;
-}
+  .selectBox {
+    position: relative;
+    width: 196px;
+  }
 
-.selectBox select{
-  position: relative;
-  width: 100%;
-  padding: 20px 10px 10px;
-  background: transparent;
-  outline: none;
-  box-shadow: none;
-  border: none;
-  color: #a56a44;
-  font-size: 1em;
-  letter-spacing: 0.05em;
-  transition: 0.5s;
-  z-index: 10;
-}
-.selectBox select option:hover{
-  /* background-color: aqua; */
-  background-color: #a56a44;
-  color: white;
-}
-.selectBox span {
-  position: absolute;
-  left: 0;
-  padding: 20px 10px 10px;
-  font-size: 1em;
-  color: #8f8f8f;
-  letter-spacing: 00.05em;
-  transition: 0.5s;
-  pointer-events: none;
-}
+  .selectBox select {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #a56a44;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+  }
 
-.selectBox select:valid ~span,
-.selectBox select:focus ~span {
-  color: #a56a44;
-  transform: translateX(-10px) translateY(-34px);
-  font-size: 0,75em;
-}
+  .selectBox select option:hover {
+    /* background-color: aqua; */
+    background-color: #a56a44;
+    color: white;
+  }
 
-.selectBox i {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: #a56a44;
-  border-radius: 4px;
-  transition: 0.5s;
-  pointer-events: none;
-  z-index: 9;
-}
+  .selectBox span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    color: #8f8f8f;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+  }
 
-/* 
+  .selectBox select:valid~span,
+  .selectBox select:focus~span {
+    color: #a56a44;
+    transform: translateX(-10px) translateY(-34px);
+    font-size: 0, 75em;
+  }
+
+  .selectBox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #a56a44;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  /* 
 .selectBox select:valid ~i,
 .selectBox select:focus ~i {
   height: 44px;
 } */
+
+
+
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 <!-- <link rel="stylesheet" href="{% static 'css/cards.css' %}"> -->
 
 <section class="product-section bg-light">
   <div class="container">
-    <div class="d-flex justify-content-between">
-      <h1 class="" style="color: #a56a44;">PRODUCTS</h1>
+    <h1 class="" style="color: #a56a44;">PRODUCTS</h1>
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <h2>Living Room Furniture</h2>
+
+          {% for e in data %}
+
+          <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
+            {% with e.images.first as first_image %}
+            {% if first_image %}
+            <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
+            {% endif %}
+            {% endwith %}
+
+
+            <div class="card-body">
+              <h5 class="card-title">{{e.name}}</h5>
+              <!-- <p class="card-text">{{e.desc}}</p> -->
+            </div>
+          </div>
+
+
+
+          {% endfor %}
+
+        </div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+
       <h2 class="" style="color: #a56a44;">FILTER</h2>
     </div>
     <div class="d-flex justify-content-end">
       <div class="selectBox mx-2">
         <!-- <label for="">select Category</label> -->
         <select name="category" id="dataCategory" class="" onchange="searchCategory()">
-          <option class="opt" value="">select Category</option>
-          <option class="opt" value="Chair">Chair</option>
-          <option class="opt" value="Table">Table</option>
-          <option class="opt" value="Teapoy">Teapoy</option>
-          <option class="opt" value="Cupboard">Cupboard</option>
-          <option class="opt" value="Pooja Mandir">Pooja Mandir</option>
+          <option value=""></option>
+          <option value="Living Room Furniture">Living Room Furniture</option>
+          <option value="Dining & Kitchen Furniture">Dining & Kitchen Furniture</option>
+          <option value="Bar Furniture">Bar Furniture</option>
+          <option value="Bedroom Furniture">Bedroom Furniture</option>
+          <option value="Mattresses">Mattresses</option>
+          <option value="Kid Furniture">Kid Furniture</option>
+          <option value="Study & Office Furniture">Study & Office Furniture</option>
+          <option value="Accent Furniture">Accent Furniture</option>
+          <option value="Shoe Racks">Shoe Racks</option>
+          <option value="Book Shelves">Book Shelves</option>
+          <option value="Outdoor Furniture">Outdoor Furniture</option>
+          <option value="Outdoor Furniture">New Arrivals</option>
           <!-- Add more options as needed -->
         </select>
         <!-- <span for="">select Category</span> -->
@@ -209,6 +285,7 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
 
@@ -264,7 +341,7 @@
 
 
 
-  function searchCategory(){
+  function searchCategory() {
     var category = document.getElementById("dataCategory");
     console.log(category.value);
 
@@ -280,7 +357,7 @@
         var searchInputVal = searchInput.value;
         console.log(searchInputVal)
         let filteredData = data.products.filter((e) => {
-          return e.category==category.value;
+          return e.category == category.value;
         });
         let showInHtml = filteredData.map((e, index) => {
           return `
@@ -312,5 +389,26 @@
     });
 
   }
+
+
+
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+
 </script>
 {% endblock %}

@@ -8,64 +8,201 @@
 <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-<section class="product-section">
+
+<style>
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        position: relative;
+    }
+
+    .title {
+        font-size: 28px;
+        color: royalblue;
+        font-weight: 600;
+        letter-spacing: -1px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 30px;
+    }
+
+    .title::before,
+    .title::after {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        left: 0px;
+        background-color: royalblue;
+    }
+
+    .title::before {
+        width: 18px;
+        height: 18px;
+        background-color: royalblue;
+    }
+
+    .title::after {
+        width: 18px;
+        height: 18px;
+        animation: pulse 1s linear infinite;
+    }
+
+    .message,
+    .signin {
+        color: rgba(88, 87, 87, 0.822);
+        font-size: 14px;
+    }
+
+    .signin {
+        text-align: center;
+    }
+
+    .signin a {
+        color: royalblue;
+    }
+
+    .signin a:hover {
+        text-decoration: underline royalblue;
+    }
+
+    .flex {
+        display: flex;
+        width: 100%;
+        gap: 6px;
+    }
+
+    .form label {
+        position: relative;
+    }
+
+    .form label .input {
+        width: 100%;
+        padding: 10px 10px 20px 10px;
+        outline: 0;
+        border: 1px solid rgba(105, 105, 105, 0.397);
+        border-radius: 10px;
+    }
+
+    .form label .input+span {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        color: grey;
+        font-size: 0.9em;
+        cursor: text;
+        transition: 0.3s ease;
+    }
+
+    .form label .input:placeholder-shown+span {
+        top: 15px;
+        font-size: 0.9em;
+    }
+
+    .form label .input:focus+span,
+    .form label .input:valid+span {
+        top: 30px;
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+
+    .form label .input:valid+span {
+        color: green;
+    }
+
+    .submit {
+        border: none;
+        outline: none;
+        background-color: royalblue;
+        padding: 10px;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 16px;
+        transform: .3s ease;
+    }
+
+    .submit:hover {
+        background-color: rgb(56, 90, 194);
+    }
+
+    @keyframes pulse {
+        from {
+            transform: scale(0.9);
+            opacity: 1;
+        }
+
+        to {
+            transform: scale(1.8);
+            opacity: 0;
+        }
+    }
+</style>
+
+
+
+<section class="product-section " style="margin-left: 10rem; margin-right: 10rem;">
     <div class="container ">
         <!-- Product content goes here  px-5 py-3 bg-light border rounded mt-5 -->
-        <form class="card " style="margin-top: 7rem;" method="POST" id="frm" enctype="multipart/form-data"
-            novalidate>
-            <h2 class="card-header" >Product Registration</h2>
-            <div class="card-body row">
-                {% csrf_token %}
-                <!-- {{form.as_p}} -->
 
-                <div class="form-group col-4">
-                    <label label="form-label" for="productName">Name</label>
-                    <input name="name" type="text" id="productName" class="form-control" placeholder="Product Name" required>
-                </div>
-                
-                <div class="form-group col-4">
-                    
-                    <label for="category">Category:</label>
-                    <select name="category" id="category" class="form-control" required>
-                        <option value="">select</option>
-                        <option value="Chair">Chair</option>
-                        <option value="Table">Table</option>
-                        <option value="Teapoy">Teapoy</option>
-                        <option value="Cupboard">Cupboard</option>
-                        <option value="Pooja Mandir">Pooja Mandir</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <div class="form-group col-4">
-                    <label label="form-label" for="id_image_0">Images</label>
-                    <input type="file" name="image" multiple id="id_image_0" class="form-control" required>
-                </div>
-                <!-- <div id="image-fields">
-                    <div class="image-field" class="form-group">
-                        <input type="file" name="image" multiple id="id_image_0" class="form-control">
-                        <button type="button" class="remove-image-field">-</button>
-                    </div>
-                </div> -->
-                <!-- <button type="button" id="add-image-field">+</button> -->
-                <div class="form-group col-4">
-                    <label label="form-label" for="productDescription">Description</label>
-                    <textarea name="description" id="productDescription" cols="30" rows="5" class="form-control"
-                        placeholder="Product Description" required></textarea>
-                </div>
-                
-                
-
+        <form class="form border mt-5" method="POST" id="frm" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div>
+                <h1 class="" style="color: #a56a44;">PRODUCT REGISTRATION</h1>
             </div>
-            <div class="mx-3 col-4">
-                    <button type="submit" class=" btn text-light my-2" style="background: #a56a44" id="submitBtn">
-                        Submit
-                    </button>
-                </div>
-            
+            <!-- <p class="title">Product Registration </p> -->
+            <!-- <p class="message">Signup now and get full access to our app. </p> -->
+            <div class="flex">
+                <label style="width: 100%;">
+                    <input required="" placeholder="" name="name" type="text" id="productName" class="input">
+                    <span>Product Name</span>
+                </label>
+                <label style="width: 100%;">
+                    <select name="category" id="category" class="input" required>
+                        <option value=""></option>
+                        <option value="Living Room Furniture">Living Room Furniture</option>
+                        <option value="Dining & Kitchen Furniture">Dining & Kitchen Furniture</option>
+                        <option value="Bar Furniture">Bar Furniture</option>
+                        <option value="Bedroom Furniture">Bedroom Furniture</option>
+                        <option value="Mattresses">Mattresses</option>
+                        <option value="Kid Furniture">Kid Furniture</option>
+                        <option value="Study & Office Furniture">Study & Office Furniture</option>
+                        <option value="Accent Furniture">Accent Furniture</option>
+                        <option value="Shoe Racks">Shoe Racks</option>
+                        <option value="Book Shelves">Book Shelves</option>
+                        <option value="Outdoor Furniture">Outdoor Furniture</option>
+                        <option value="Outdoor Furniture">New Arrivals</option>
+                    </select>
+                    <span>Category</span>
+                </label>
+            </div>
+            <div class="flex">
+
+                <label style="width: 100%; height: 10px;">
+                    <!-- <span>Images</span> -->
+                    <input type="file" name="image" multiple id="id_image_0" class="form-control" required>
+                </label>
+                <label style="width: 100%;">
+                    <textarea name="description" id="productDescription" cols="30" rows="3" class="input"
+                        required></textarea>
+                    <span>Product Description</span>
+                </label>
+            </div>
+            <div class="d-flex justify-content-end">
+
+                <button type="button" class="submit" id="submitBtn" style="background-color: #a56a44;">Submit</button>
+            </div>
+            <!-- <p class="signin">Already have an acount ? <a href="#">Signin</a> </p> -->
         </form>
 
 
-        <div class="my-5">
+
+        <div class="my-5 border rounded p-4">
 
             <table id="myTable" class="display border">
                 <thead>
@@ -80,7 +217,7 @@
                     <tr>
                         <td>{{e.name}}</td>
                         <td>{{e.category}}</td>
-                        <td> <a href="/delete-product/{{e.id}}"> <i class='bx bx-trash'></i></a></td>
+                        <td> <a id="deleteProduct" onclick="deleteProduct('{{e.id}}')"> <i class='bx bx-trash'></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -89,34 +226,95 @@
 
     </div>
 </section>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-$(document).ready(function () {
-    $('#myTable').DataTable();
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+
+
+    if ($('#productName').val() == "") {
+        Swal.fire({
+            title: 'Please Enter The Product Name',
+            icon: "warning",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No `,
+        })
+    }
+
+    else if ($('#category').val() == "") {
+        Swal.fire({
+            title: 'Please Enter The Category',
+            icon: "warning",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No `,
+        })
+    }
+    else if ($('#id_image_0').val() == "") {
+        Swal.fire({
+            title: 'Please select atleast 1 Image',
+            icon: "warning",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No `,
+        })
+    }
+    else if ($('#productDescription').val() == "") {
+        Swal.fire({
+            title: 'Please Enter The Product Description',
+            icon: "warning",
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No `,
+        })
+    }
+    else {
+        Swal.fire({
+            title: "Are you sure you want to Submit ?",
+            showDenyButton: true,
+            // showCancelButton: true,
+            confirmButtonText: "Save",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Saved!", "", "success");
+                document.getElementById("frm").submit();
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+    }
 });
 
+function deleteProduct(e){
+console.log("Product deleted", e)
+
+    
+    Swal.fire({
+            title: "Are you sure you want to Delete The product ?",
+            showDenyButton: true,
+            // showCancelButton: true,
+            confirmButtonText: "Save",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Saved!", "", "success");
+                window.location = `/delete-product/${e}`
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
 
 
-//   $(document).ready(function() {
-//     var index = 1;
+};
 
-//     $("#add-image-field").click(function() {
-//         console.log("hitttt")
-//       var imageField = $('<input type="file">'); // Create a new image field
-//       imageField.attr("name", "image_" + index); // Set the name attribute
-//       imageField.attr("id", "id_image_" + index); // Set the id attribute
-//       var removeButton = $('<button type="button" class="remove-image-field">-</button>'); // Create a remove button
-//       var div = $("<div>").addClass("image-field").append(imageField, removeButton); // Create a new <div> element and append the image field and remove button
-//       $("#image-fields").append(div); // Append the new <div> to the container
-
-//       index++; // Increment the index for the next field
-//     });
-
-//     // Event delegation to handle remove button click dynamically
-//     $("#image-fields").on("click", ".remove-image-field", function() {
-//       $(this).parent().remove(); // Remove the parent <div> containing the image field and remove button
-//     });
-//   });
 
 
 

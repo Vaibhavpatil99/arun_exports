@@ -114,7 +114,7 @@ def addProducts(request):
             category = request.POST.get('category')
             images = request.FILES.getlist('image')
 
-            product = Products.objects.create(name=name, desc=description)
+            product = Products.objects.create(name=name, desc=description, category=category)
             # product.save()
 
             for image in images:
