@@ -7,6 +7,8 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate
 
 import json
+import random
+
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password
@@ -111,6 +113,7 @@ def addProducts(request):
         if request.method == 'POST':
             name = request.POST.get('name')
             description = request.POST.get('description')
+            product_code = request.POST.get('productCode')
             category = request.POST.get('category')
             images = request.FILES.getlist('image')
 
@@ -153,11 +156,16 @@ def addProducts(request):
 def products(request):
     data = Products.objects.all()
     print(data)
-    # for product in data:
-    #     print(product.img.split(','))
-    #     product.image_paths = product.img.split(',')
 
-    return render(request, 'products.html', {'data': data})
+    if len(data) >= 3:
+        # Randomly pick 3 items from the queryset
+        random_data_items = random.sample(list(data), 3)
+    else:
+        # If there are fewer than 3 items, just use all items
+        random_data_items = data
+
+
+    return render(request, 'products.html', {'data': data, 'random_data_items': random_data_items})
 
 def jsonProductdata(request):
     products = list(Products.objects.all())
@@ -203,6 +211,8 @@ def enquirySubmit(request, product_id):
         Name = first_name + ' ' + last_name
         print("Data:",first_name, last_name, email)
 
+        messages.info(request, 'Enquiry getting submitted...')
+        print('Enquiry not submitted successfully')
         subject = 'Enquiry from {}'.format(first_name)
         email_body = 'Name: {}\nEmail: {}\ncontact_no: {}\nMessage: {}\nProduct Name: {}\nProduct Description: {}'.format(Name, email,contact_no, message, product.name, product.desc)
         send_mail(subject, email_body, 'patilvb1999@gmail.com', ['patilvb1999@gmail.com'])
@@ -210,7 +220,12 @@ def enquirySubmit(request, product_id):
         user_subject = 'Enquiry Confirmation'
         user_email_body = 'Dear {},\n\nThank you for your enquiry. We will get back to you shortly.'.format(first_name)
         send_mail(user_subject, user_email_body, 'sender@example.com', [email])
-    
+
+        enquiry = Enquiry(name=Name, email=email, contact_no=contact_no, message=message, product=product)
+        enquiry.save()
+
+        messages.success(request, 'Enquiry submitted successfully.')
+        print('Enquiry submitted successfully')
         return JsonResponse({'message': 'Enquiry submitted successfully.'})
     else:
         return render(request, 'product.html')
@@ -244,3 +259,11 @@ def enquiry_submit(request, id):
         return redirect('products')
     else:
         return render(request, 'enquiry.html')
+    
+    
+def enquiries(request):
+    if request.user.is_superuser:
+        enquiries = Enquiry.objects.all()
+        return render(request, 'enquiries.html', {'enquiries': enquiries})
+    else:
+        return render(request, 'pageNotAvailable.html')

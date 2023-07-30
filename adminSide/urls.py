@@ -22,6 +22,7 @@ urlpatterns = [
     path('jsonProductdata/', views.jsonProductdata, name='jsonProductdata'),
     path('enquiry-submit/<id>/', enquiry_submit, name='enquiry_submit'),
     path('enquirySubmit/<product_id>/', enquirySubmit, name='enquirySubmit'),
+    path('enquiries/', enquiries, name='enquiries'),
 
     # path('product-data', views.productData, name='prod'),
     # path('json-data', views.json_data, name='json_data')

@@ -789,9 +789,9 @@
         text-align: center;
     }
 
-    .product-image {
+    /* .product-image {
         display: none;
-    }
+    } */
 
     .image-list li {
         margin: 0;
@@ -810,11 +810,13 @@
 
         .product-image img {
             height: 52vh;
+            /* object-fit: contain; */
         }
 
         .product-image img.active {
             display: block;
             margin: 0 0 0.75rem 0;
+            
         }
 
         .image-list {
@@ -1108,21 +1110,53 @@
         z-index: 9999;
     }
 
+    @media screen and (max-width: 768px) {
+        .product-image .active{
+            width: 100%;
+        }
+    }
+
     /* CSS for the spinner (same as before) */
     .spinner-border {
         width: 3rem;
         height: 3rem;
     }
 
+
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 </style>
 
 
 <section class="product-section">
 
     <div class="container">
+
+        
         <!-- Product content goes here -->
         <main>
-            <div class="container">
+            <div class="container" style="margin-top: 70px;">
+                <div id="alerts-container">
+            
+                </div>
                 <!-- <div class="grid second-nav">
                     <div class="column-xs-12 my-3 ">
                         <nav>
@@ -1134,18 +1168,32 @@
                         </nav>
                     </div>
                 </div> -->
-                <div class="grid product my-3">
+                <div class="grid product" >
                     <div class="column-xs-12 column-md-7 ">
                         <div class="product-gallery">
-                            <div class="product-image">
-                                <img class="active" src="{{ data.0.images.all.0.image.url }}">
+                            <div class="product-image ">
+                                <img class="active image-field " data-bs-toggle="modal" data-bs-target="#imgModel"
+                                    src="{{ data.0.images.all.0.image.url }}">
                             </div>
                             <ul class="image-list">
-                                {% for e in data.0.images.all %}
-                                <li class="image-item"><img src="{{ e.image.url }}"></li>
-                                {% endfor %}
-                                <!-- <li class="image-item"><img src="https://source.unsplash.com/VgbUxvW3gS4"></li> -->
-                                <!-- <li class="image-item"><img src="https://source.unsplash.com/5WbYFH0kf_8"></li> -->
+
+                                <!-- Swiper -->
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper" style="height: 10rem;">
+
+                                        {% for e in data.0.images.all %}
+                                        <div class="swiper-slide">
+                                            <li class="image-item"><img src="{{ e.image.url }}"></li>
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+
+
 
                             </ul>
                         </div>
@@ -1172,17 +1220,17 @@
             </div>
     </div>
 
-    <div id="spinner-container">
+    <!-- <div id="spinner-container">
         <div class="spinner-border text-light" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-    </div>
+    </div> -->
 
     </main>
 
     </div>
 
-    <!-- Modal -->
+    <!-- enquiry form Modal -->
     <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 2p;">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1247,14 +1295,26 @@
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="imgModel" tabindex="-1" role="dialog"
+        aria-labelledby="imgModelTitle" aria-hidden="true" style="width: 2p;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body m-0 p-0 ">
+                    <div class="">
+                        <img class="fullSizeImage image-field" src="{{ data.0.images.all.0.image.url }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 <!-- SweetAlert CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+<!-- 
 {% if message %}
-<!-- {% for message in error_message %} -->
 <script>
     console.log("{{ message }}")
     swal.fire('{{message}}', {
@@ -1264,17 +1324,22 @@
     })
 
 </script>
-<!-- {% endfor %} -->
-{% endif %}
+{% endif %} -->
+
+
+
+
 
 
 <script>
     const activeImage = document.querySelector(".product-image .active");
+    const fullSizeImage = document.querySelector(".fullSizeImage");
     const productImages = document.querySelectorAll(".image-list img");
 
 
     function changeImage(e) {
         activeImage.src = e.target.src;
+        fullSizeImage.src = e.target.src;
     }
 
     function toggleNavigation() {
@@ -1282,14 +1347,39 @@
     }
 
     productImages.forEach(image => image.addEventListener("click", changeImage));
-    $('#spinner-container').hide();
+    // $('#spinner-container').hide();
     $(document).ready(function () {
+
+        function showAlert(message, alertType) {
+            console.log(message, alertType);
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-dismissible fade show alert-' + alertType;
+        alertDiv.role = 'alert';
+
+        const closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn-close';
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Close');
+
+        const messageSpan = document.createElement('span');
+        messageSpan.textContent = message;
+
+        alertDiv.appendChild(messageSpan);
+        alertDiv.appendChild(closeButton);
+
+        document.getElementById('alerts-container').appendChild(alertDiv);
+        }
+
+
         $('#myForm').submit(function (event) {
             event.preventDefault(); // Prevent default form submission
-            $('#spinner-container').show();
+            // $('#spinner-container').show();
             // Serialize the form data
             var formData = $(this).serialize();
+            console.log("formData");
 
+            showAlert('Enquiry getting submitted...', 'info');
             // Send AJAX request
             $.ajax({
                 url: '/enquirySubmit/{{ data.0.id }}/',
@@ -1297,13 +1387,14 @@
                 data: formData,
                 dataType: 'json',
                 success: function (response) {
-                    $('#spinner-container').hide();
-                    console.log(response);
-                    swal.fire(response.message, {
-                        icon: "success",
-                        button: "ok",
-                        closeOnClickOutside: false,
-                    })
+                    // $('#spinner-container').hide();
+                    showAlert("Enquiry submitted successfully.😎", 'success');
+                    console.log("formData",response);
+                    // swal.fire(response.message, {
+                    //     icon: "success",
+                    //     button: "ok",
+                    //     closeOnClickOutside: false,
+                    // })
                 },
                 error: function (xhr, status, error) {
                     $('#spinner-container').hide();
@@ -1396,6 +1487,24 @@
     //     }
     // }
 
+
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        // centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 
 
 

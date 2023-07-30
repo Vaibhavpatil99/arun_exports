@@ -146,18 +146,19 @@
 
 
 
-<section class="product-section " style="margin-left: 10rem; margin-right: 10rem;">
+<section class="product-section mx-md-5">
     <div class="container ">
         <!-- Product content goes here  px-5 py-3 bg-light border rounded mt-5 -->
 
-        <form class="form border mt-5" method="POST" id="frm" enctype="multipart/form-data" novalidate>
+        <form class="form border " style="margin-top: 100px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" method="POST" id="frm" enctype="multipart/form-data"
+            novalidate>
             {% csrf_token %}
             <div>
-                <h1 class="" style="color: #a56a44;">PRODUCT REGISTRATION</h1>
+                <h1 class="" style="color: #a56a44; font-weight: 600;">PRODUCT REGISTRATION</h1>
             </div>
             <!-- <p class="title">Product Registration </p> -->
             <!-- <p class="message">Signup now and get full access to our app. </p> -->
-            <div class="flex">
+            <div class="d-flex gap-2 flex-md-row flex-column">
                 <label style="width: 100%;">
                     <input required="" placeholder="" name="name" type="text" id="productName" class="input">
                     <span>Product Name</span>
@@ -181,18 +182,31 @@
                     <span>Category</span>
                 </label>
             </div>
-            <div class="flex">
+            <div class="d-flex gap-2 flex-md-row flex-column">
 
-                <label style="width: 100%; height: 10px;">
-                    <!-- <span>Images</span> -->
-                    <input type="file" name="image" multiple id="id_image_0" class="form-control" required>
-                </label>
                 <label style="width: 100%;">
                     <textarea name="description" id="productDescription" cols="30" rows="3" class="input"
                         required></textarea>
                     <span>Product Description</span>
                 </label>
+                <div class="d-flex flex-column gap-2" style="width: 100%;">
+
+                    <label class="" style="width: 100%;">
+                        <input required="" placeholder="" name="name" type="text" id="productCode" class="input">
+                        <span>Product Code</span>
+                    </label>
+
+                    <label style="width: 100%;">
+                        <!-- <span>Images</span> -->
+                        <input type="file" name="image" multiple id="id_image_0" class="form-control" required>
+                    </label>
+                </div>
+
             </div>
+            <!-- <div class="d-flex gap-2 flex-md-row flex-column">
+
+                
+            </div> -->
             <div class="d-flex justify-content-end">
 
                 <button type="button" class="submit" id="submitBtn" style="background-color: #a56a44;">Submit</button>
@@ -217,7 +231,8 @@
                     <tr>
                         <td>{{e.name}}</td>
                         <td>{{e.category}}</td>
-                        <td> <a id="deleteProduct" onclick="deleteProduct('{{e.id}}')"> <i class='bx bx-trash'></i></a></td>
+                        <td> <a id="deleteProduct" onclick="deleteProduct('{{e.id}}')"> <i class='bx bx-trash'></i></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -236,69 +251,69 @@
     document.getElementById("submitBtn").addEventListener("click", function () {
 
 
-    if ($('#productName').val() == "") {
-        Swal.fire({
-            title: 'Please Enter The Product Name',
-            icon: "warning",
-            showDenyButton: false,
-            showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No `,
-        })
-    }
+        if ($('#productName').val() == "") {
+            Swal.fire({
+                title: 'Please Enter The Product Name',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
 
-    else if ($('#category').val() == "") {
-        Swal.fire({
-            title: 'Please Enter The Category',
-            icon: "warning",
-            showDenyButton: false,
-            showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No `,
-        })
-    }
-    else if ($('#id_image_0').val() == "") {
-        Swal.fire({
-            title: 'Please select atleast 1 Image',
-            icon: "warning",
-            showDenyButton: false,
-            showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No `,
-        })
-    }
-    else if ($('#productDescription').val() == "") {
-        Swal.fire({
-            title: 'Please Enter The Product Description',
-            icon: "warning",
-            showDenyButton: false,
-            showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No `,
-        })
-    }
-    else {
-        Swal.fire({
-            title: "Are you sure you want to Submit ?",
-            showDenyButton: true,
-            // showCancelButton: true,
-            confirmButtonText: "Save",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire("Saved!", "", "success");
-                document.getElementById("frm").submit();
-            } else if (result.isDenied) {
-                Swal.fire("Changes are not saved", "", "info");
-            }
-        });
-    }
-});
+        else if ($('#category').val() == "") {
+            Swal.fire({
+                title: 'Please Enter The Category',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
+        else if ($('#id_image_0').val() == "") {
+            Swal.fire({
+                title: 'Please select atleast 1 Image',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
+        else if ($('#productDescription').val() == "") {
+            Swal.fire({
+                title: 'Please Enter The Product Description',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
+        else {
+            Swal.fire({
+                title: "Are you sure you want to Submit ?",
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: "Save",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Saved!", "", "success");
+                    document.getElementById("frm").submit();
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
+        }
+    });
 
-function deleteProduct(e){
-console.log("Product deleted", e)
+    function deleteProduct(e) {
+        console.log("Product deleted", e)
 
-    
-    Swal.fire({
+
+        Swal.fire({
             title: "Are you sure you want to Delete The product ?",
             showDenyButton: true,
             // showCancelButton: true,
@@ -313,7 +328,7 @@ console.log("Product deleted", e)
         });
 
 
-};
+    };
 
 
 

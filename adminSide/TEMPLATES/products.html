@@ -5,7 +5,6 @@
 {% block title %}Product - Your Website{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <style>
   .backg:hover {
     /* border-radius: 50px; */
@@ -140,6 +139,209 @@
 
 
 
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+  /*-- VARIABLES CSS--*/
+  /*Colores*/
+  :root {
+    --first-color: #E3F8FF;
+    --second-color: #DCFAFB;
+    --third-color: #FFE8DF;
+    --accent-color: #FF5151;
+    --dark-color: #161616;
+    --theme-color: #a56a44;
+  }
+
+  /*Tipografia responsive*/
+  :root {
+    --body-font: 'Open Sans';
+    --h1-font-size: 1.5rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: 0.938rem;
+    --smaller-font-size: 0.75rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    :root {
+      --h1-font-size: 2rem;
+      --normal-font-size: 1rem;
+      --smaller-font-size: 0.813rem;
+    }
+  }
+
+  /*-- BASE --*/
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 2rem 0 0 0;
+    background-color: #fff;
+    color: var(--dark-color);
+    font-family: var(--body-font);
+  }
+
+  h1 {
+    font-size: var(--h1-font-size);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  /*-- LAYAOUT --*/
+  .main {
+    padding: 2rem 0;
+  }
+
+  .bd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    max-width: 1200px;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /*-- PAGES --*/
+  .title-shop {
+    position: relative;
+    margin: 0 2.5rem;
+  }
+
+  .title-shop::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 72px;
+    height: 2px;
+    background-color: var(--dark-color);
+    margin-left: .25rem;
+  }
+
+  /*-- COMPONENT --*/
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: #eeeeee;
+  }
+
+  /* article:nth-child(1){
+    background-color: var(--first-color);
+}
+article:nth-child(2){
+    background-color: var(--second-color);
+}
+article:nth-child(3){
+    background-color: var(--third-color);
+}
+article:nth-child(4){
+    background-color: var(--second-color);
+} */
+
+
+  .card__img {
+    width: 180px;
+    height: auto;
+    padding: 3rem 0;
+    transition: .5s;
+  }
+
+  .card__name {
+    position: absolute;
+    left: -25%;
+    top: 0;
+    width: 3.5rem;
+    height: 100%;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    background-color: var(--theme-color);
+    color: #fff;
+    font-weight: bold;
+    transition: .5s;
+  }
+
+  .card__icon {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+  }
+
+  .card__icon:hover {
+    color: var(--accent-color);
+  }
+
+  .card__precis {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    transition: .5s;
+  }
+
+  .card__preci {
+    display: block;
+    text-align: center;
+  }
+
+  .card__preci--before {
+    font-size: var(--smaller-font-size);
+    color: var(--accent-color);
+    margin-bottom: .25rem;
+  }
+
+  .card__preci--now {
+    font-size: var(--h3-font-size);
+    font-weight: bold;
+  }
+
+  /*Move left*/
+  .card:hover {
+    box-shadow: 0 .5rem 1rem #D1D9E6;
+  }
+
+  .card:hover .card__name {
+    left: 0;
+  }
+
+  .card:hover .card__img {
+    transform: rotate(30deg);
+    margin-left: 3.5rem;
+  }
+
+  .card:hover .card__precis {
+    margin-left: 3.5rem;
+    padding: 0 1.5rem;
+  }
+
+  /*-- MEDIA QUERIES --*/
+  @media screen and (min-width: 1200px) {
+    body {
+      margin: 3rem 0 0 0;
+    }
+
+    .title-shop {
+      margin: 0 5rem;
+    }
+
+    .bd-grid {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 
   .swiper {
     width: 100%;
@@ -168,25 +370,21 @@
   <div class="container">
     <h1 class="" style="color: #a56a44;">PRODUCTS</h1>
     <!-- Swiper -->
-    <div class="swiper mySwiper">
+    <!-- <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <h2>Living Room Furniture</h2>
 
-          {% for e in data %}
+          {% for e in random_data_items %}
 
-          <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
+          <div class="" style="width: 18rem;">
             {% with e.images.first as first_image %}
             {% if first_image %}
-            <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
+            <img src="{{ first_image.image.url }}" class=" image-field" alt="Product Image">
+            <h5 class="">{{e.name}}</h5>
             {% endif %}
             {% endwith %}
 
-
-            <div class="card-body">
-              <h5 class="card-title">{{e.name}}</h5>
-              <!-- <p class="card-text">{{e.desc}}</p> -->
-            </div>
           </div>
 
 
@@ -196,20 +394,16 @@
         </div>
         <div class="swiper-slide">Slide 2</div>
         <div class="swiper-slide">Slide 3</div>
-        <div class="swiper-slide">Slide 4</div>
-        <div class="swiper-slide">Slide 5</div>
-        <div class="swiper-slide">Slide 6</div>
-        <div class="swiper-slide">Slide 7</div>
-        <div class="swiper-slide">Slide 8</div>
-        <div class="swiper-slide">Slide 9</div>
+
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-pagination"></div>
-    </div>
+    </div> -->
+    <!-- Swiper end-->
+
 
     <div class="d-flex justify-content-end">
-
       <h2 class="" style="color: #a56a44;">FILTER</h2>
     </div>
     <div class="d-flex justify-content-end">
@@ -252,27 +446,60 @@
 
     </div>
     <hr>
-    <div class="row" id="dataList">
+    <div class="row d-flex justify-content-center justify-content-md-start " id="dataList">
       {% for e in data %}
 
-      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
-        {% with e.images.first as first_image %}
-        {% if first_image %}
-        <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
-        {% endif %}
-        {% endwith %}
+      <div class="backg col-4 m-md-3 m-1 card" style="width: 18rem; padding: 0px;">
+        <div class="row g-0">
 
+          {% with e.images.first as first_image %}
+          {% if first_image %}
+          <div class="col-4 col-md-12">
+            <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
+          </div>
+          {% endif %}
+          {% endwith %}
 
-        <div class="card-body">
-          <h5 class="card-title">{{e.name}}</h5>
-          <!-- <p class="card-text">{{e.desc}}</p> -->
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title">{{e.name}}</h5>
+              <a href="/product/{{e.id}}" class="btn text-light " style="background: #a56a44;">View</a>
+            </div>
+          </div>
         </div>
-        <a href="/product/{{e.id}}" class="btn text-light " style="background: #a56a44;">View</a>
       </div>
 
-
-
       {% endfor %}
+
+
+
+      <!-- rotatable card  -->
+
+      <!-- <main class="main bd-grid">
+        {% for e in data %}
+        <a href="/product/{{e.id}}" style="color: white;">
+          <article class="card">
+            <div class="card__img">
+              {% with e.images.first as first_image %}
+              {% if first_image %}
+              <img class="rounded" src="{{ first_image.image.url }}" alt="">
+              {% endif %}
+              {% endwith %}
+            </div>
+            <div class="card__name">
+
+              <p>View</p>
+            </div>
+            <div class="card__precis">
+              <div>
+
+                <span class="card__preci card__preci--now">{{e.name}}</span>
+              </div>
+            </div>
+          </article>
+        </a>
+        {% endfor %}
+      </main> -->
 
     </div>
   </div>
@@ -284,8 +511,8 @@
 </section>
 
 
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
 
@@ -312,15 +539,21 @@
           return `
         
 
-      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
-        <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+      <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
+        <div class="row g-0">
 
+          <div class="col-4 col-md-12">
+            <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+          </div>
 
-        <div class="card-body">
-          <h5 class="card-title">${e.name}</h5>
-          
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title">${e.name}</h5>
+            
+              <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+            </div>
+          </div>
         </div>
-        <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
       </div>
 
 

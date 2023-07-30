@@ -60,12 +60,31 @@
     .text.show-more .moretext {
         display: inline;
     }
+
+    .about-container video{
+            height: 94vh;
+        }
+
+    .about-container p{
+        font-size: 17px;
+    }
+    @media screen and (min-width: 768px) {
+        .about-container{
+            margin-left: 55px;
+        }
+        .about-container video{
+            height: 91vh;
+        }
+        .about-container p{
+            font-size: 24px;
+        }
+    }
 </style>
 
 <section class="about-section">
-    <div class="container" style="margin: 55px;">
+    <div class="ml-5 about-container" >
 
-        <video autoplay muted loop >
+        <video autoplay muted loop style="width: 100%; object-fit: none;">
             <!-- <source src="/woodmp4.mp4" type="video/mp4"> -->
             <source src="{% static 'images/video.mp4' %}" id="myVideo" type="video/mp4">
             Your browser does not support HTML5 video.
