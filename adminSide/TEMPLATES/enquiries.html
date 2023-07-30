@@ -52,7 +52,7 @@
                         <th>Contact Nummer</th>
                         <th class="msg">Message</th>
                         <th>Product Name</th>
-                        <th class="pid">Product Id</th>
+                        <th class="pid">Product Code</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
                         <td>{{e.contact_no}}</td>
                         <td class="msg">{{e.message}}</td>
                         <td>{{e.product.name}}</td>
-                        <td class="pid">{{e.product.id}}</td>
+                        <td class="pid">{{e.product.product_code}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

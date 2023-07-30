@@ -192,7 +192,7 @@
                 <div class="d-flex flex-column gap-2" style="width: 100%;">
 
                     <label class="" style="width: 100%;">
-                        <input required="" placeholder="" name="name" type="text" id="productCode" class="input">
+                        <input required="" placeholder="" name="productCode" type="text" id="productCode" class="input">
                         <span>Product Code</span>
                     </label>
 
@@ -292,9 +292,19 @@
                 denyButtonText: `No `,
             })
         }
+        else if ($('#productCode').val() == "") {
+            Swal.fire({
+                title: 'Please Enter The Product Code',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
         else {
             Swal.fire({
-                title: "Are you sure you want to Submit ?",
+                title: "Are you sure you want to Submit?",
                 showDenyButton: true,
                 // showCancelButton: true,
                 confirmButtonText: "Save",

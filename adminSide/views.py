@@ -111,13 +111,14 @@ def addProducts(request):
     data = Products.objects.all()
     if request.user.is_superuser:
         if request.method == 'POST':
+            print(request.POST)
             name = request.POST.get('name')
             description = request.POST.get('description')
             product_code = request.POST.get('productCode')
             category = request.POST.get('category')
             images = request.FILES.getlist('image')
 
-            product = Products.objects.create(name=name, desc=description, category=category)
+            product = Products.objects.create(name=name, desc=description, category=category, product_code=product_code)
             # product.save()
 
             for image in images:
