@@ -366,7 +366,7 @@ article:nth-child(4){
 </style>
 <!-- <link rel="stylesheet" href="{% static 'css/cards.css' %}"> -->
 
-<section class="product-section bg-light">
+<section class="product-section bg-light;" style="margin-top: 70px;">
   <div class="container">
     <h1 class="" style="color: #a56a44;">PRODUCTS</h1>
     <!-- Swiper -->
@@ -527,41 +527,50 @@ article:nth-child(4){
       url: "/jsonProductdata",
       success: function (res) {
         data = res;
-        console.log("data", data);
-
+        console.log(data);
 
         var searchInputVal = searchInput.value;
         console.log(searchInputVal)
         let filteredData = data.products.filter((e) => {
-          return e.name.includes(searchInputVal);
+
+          // return e.name.includes(searchInputVal);
+          const searchTerm = searchInputVal.toLowerCase(); // Convert to lowercase for case-insensitive matching
+
+          const nameMatch = e.name.toLowerCase().includes(searchTerm);
+          const descriptionMatch = e.desc.toLowerCase().includes(searchTerm);
+          const productCodeMatch = e.product_code.toLowerCase().includes(searchTerm);
+
+          return nameMatch || descriptionMatch || productCodeMatch;
+
+
+
         });
-        let showInHtml = filteredData.map((e, index) => {
-          return `
+        let showInHtml
+        if (filteredData.length > 0) {
+          showInHtml = filteredData.map((e, index) => {
+            return `
         
-
-      <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
-        <div class="row g-0">
-
-          <div class="col-4 col-md-12">
-            <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
-          </div>
-
-          <div class="col-8">
-            <div class="card-body">
-              <h5 class="card-title">${e.name}</h5>
-            
-              <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-        `;
-        }).join('');
+              <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
+                <div class="row g-0">
+                
+                  <div class="col-4 col-md-12">
+                    <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+                  </div>
+                
+                  <div class="col-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${e.name}</h5>
+                    
+                      <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          showInHtml = "<p>No Result found</p>";
+        }
         var listDiv = document.getElementById("dataList");
         listDiv.innerHTML = showInHtml;
       },
@@ -584,35 +593,44 @@ article:nth-child(4){
       url: "/jsonProductdata",
       success: function (res) {
         data = res;
-        console.log("data", data);
+        let filteredData
+        if (category.value != "") {
+          filteredData = data.products.filter((e) => {
+            return e.category == category.value;
+          });
+        }
+        else {
+          filteredData = data.products;
+        }
 
-
-        var searchInputVal = searchInput.value;
-        console.log(searchInputVal)
-        let filteredData = data.products.filter((e) => {
-          return e.category == category.value;
-        });
-        let showInHtml = filteredData.map((e, index) => {
-          return `
+        let showInHtml
+        if (filteredData.length > 0) {
+          showInHtml = filteredData.map((e, index) => {
+            return `
         
+          <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
+        <div class="row g-0">
 
-      <div class="backg col-4 m-3 py-3 card" style="width: 18rem;">
-        <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+          <div class="col-4 col-md-12">
+            <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+          </div>
 
-
-        <div class="card-body">
-          <h5 class="card-title">${e.name}</h5>
-          
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title">${e.name}</h5>
+            
+              <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+            </div>
+          </div>
         </div>
-        <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
       </div>
 
 
-
-
-
         `;
-        }).join('');
+          }).join('');
+        } else {
+          showInHtml = "<p>No Result found</p>";
+        }
         var listDiv = document.getElementById("dataList");
         listDiv.innerHTML = showInHtml;
       },

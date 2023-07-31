@@ -1199,7 +1199,11 @@
                         </div>
                     </div>
                     <div class="column-xs-12 column-md-5">
-                        <h1>{{ data.0.name}}</h1>
+                        <div class="d-flex align-items-center">
+                            <h1 style="text-transform: uppercase;">{{ data.0.name}}</h1> &nbsp
+                            <h1 class="text-align-center" style="font-size: 1.5rem; color: #a56a44;">({{ data.0.product_code}})</h1>
+
+                        </div>
                         <!-- <h2>$19.99</h2> -->
 
                         <!-- {% for e in data %}

@@ -177,6 +177,7 @@ def jsonProductdata(request):
                 'name': product.name,
                 'desc': product.desc,
                 'category': product.category,
+                'product_code': product.product_code,
                 'image': product.images.first().image.url if product.images.first() else None
             }
             for product in products
