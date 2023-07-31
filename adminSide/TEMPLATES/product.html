@@ -1201,16 +1201,17 @@
                         </div>
                     </div>
                     <div class="column-xs-12 column-md-5 d-flex flex-column justify-content-between">
-                    <div class="">
-                        <div class=" d-none d-md-block">
-                            <h1 class="m-0" style="text-transform: uppercase;">{{ data.0.name}}</h1>
-                            <h1 class="m-0 text-align-center" style="font-size: 1.5rem; color: #a56a44;">
-                                {% if data.0.product_code %}
-                                ({{ data.0.product_code}})
-                                {% endif %}
-                            </h1>
+                        <div class="">
+                            <div class=" d-none d-md-block">
+                                <h1 class="m-0" style="text-transform: uppercase;">{{ data.0.name}}</h1>
+                                <h1 class="m-0 text-align-center" style="font-size: 1.5rem; color: #a56a44;">
+                                    {% if data.0.product_code %}
+                                    ({{ data.0.product_code}})
+                                    {% endif %}
+                                </h1>
 
-                        </div>
+                            </div>
+                            <p class="my-3"><span  style="color: #a56a44;"> Category: </span>{{ data.0.category}}</p>
                             <p>{{ data.0.desc}}</p>
 
                         </div>
