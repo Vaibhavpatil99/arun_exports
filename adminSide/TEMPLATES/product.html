@@ -716,11 +716,7 @@
         color: #d5d5d5;
     }
 
-    .description {
-        border-top: 0.0625rem solid #e3dddd;
-        margin: 2rem 0;
-        padding: 1rem 0 0 0;
-    }
+
 
     .add-to-cart {
         position: relative;
@@ -789,10 +785,6 @@
         text-align: center;
     }
 
-    /* .product-image {
-        display: none;
-    } */
-
     .image-list li {
         margin: 0;
     }
@@ -816,7 +808,7 @@
         .product-image img.active {
             display: block;
             margin: 0 0 0.75rem 0;
-            
+
         }
 
         .image-list {
@@ -1111,9 +1103,10 @@
     }
 
     @media screen and (max-width: 768px) {
-        .product-image .active{
+        .product-image .active {
             width: 100%;
         }
+
     }
 
     /* CSS for the spinner (same as before) */
@@ -1150,12 +1143,12 @@
 
     <div class="container">
 
-        
+
         <!-- Product content goes here -->
         <main>
             <div class="container" style="margin-top: 70px;">
                 <div id="alerts-container">
-            
+
                 </div>
                 <!-- <div class="grid second-nav">
                     <div class="column-xs-12 my-3 ">
@@ -1168,8 +1161,17 @@
                         </nav>
                     </div>
                 </div> -->
-                <div class="grid product" >
+                <div class="grid product">
                     <div class="column-xs-12 column-md-7 ">
+                        <div class=" d-block d-md-none">
+                            <h1 class="m-0" style="text-transform: uppercase;">{{ data.0.name}}</h1>
+                            <h1 class="m-0 text-align-center" style="font-size: 1.5rem; color: #a56a44;">
+                                {% if data.0.product_code %}
+                                ({{ data.0.product_code}})
+                                {% endif %}
+                            </h1>
+
+                        </div>
                         <div class="product-gallery">
                             <div class="product-image ">
                                 <img class="active image-field " data-bs-toggle="modal" data-bs-target="#imgModel"
@@ -1182,7 +1184,7 @@
                                     <div class="swiper-wrapper" style="height: 10rem;">
 
                                         {% for e in data.0.images.all %}
-                                        <div class="swiper-slide">
+                                        <div class="swiper-slide" style="background-color: #f4f5ff;">
                                             <li class="image-item"><img src="{{ e.image.url }}"></li>
                                         </div>
                                         {% endfor %}
@@ -1198,20 +1200,17 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="column-xs-12 column-md-5">
-                        <div class="d-flex align-items-center">
-                            <h1 style="text-transform: uppercase;">{{ data.0.name}}</h1> &nbsp
-                            <h1 class="text-align-center" style="font-size: 1.5rem; color: #a56a44;">({{ data.0.product_code}})</h1>
+                    <div class="column-xs-12 column-md-5 d-flex flex-column justify-content-between">
+                    <div class="">
+                        <div class=" d-none d-md-block">
+                            <h1 class="m-0" style="text-transform: uppercase;">{{ data.0.name}}</h1>
+                            <h1 class="m-0 text-align-center" style="font-size: 1.5rem; color: #a56a44;">
+                                {% if data.0.product_code %}
+                                ({{ data.0.product_code}})
+                                {% endif %}
+                            </h1>
 
                         </div>
-                        <!-- <h2>$19.99</h2> -->
-
-                        <!-- {% for e in data %}
-                        {% for i in data.0.image_paths %}
-                        <p>{{i}}</p>
-                        {% endfor %}
-                        {% endfor %} -->
-                        <div class="description">
                             <p>{{ data.0.desc}}</p>
 
                         </div>
@@ -1356,23 +1355,23 @@
 
         function showAlert(message, alertType) {
             console.log(message, alertType);
-        const alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-dismissible fade show alert-' + alertType;
-        alertDiv.role = 'alert';
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-dismissible fade show alert-' + alertType;
+            alertDiv.role = 'alert';
 
-        const closeButton = document.createElement('button');
-        closeButton.type = 'button';
-        closeButton.className = 'btn-close';
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Close');
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'btn-close';
+            closeButton.setAttribute('data-bs-dismiss', 'alert');
+            closeButton.setAttribute('aria-label', 'Close');
 
-        const messageSpan = document.createElement('span');
-        messageSpan.textContent = message;
+            const messageSpan = document.createElement('span');
+            messageSpan.textContent = message;
 
-        alertDiv.appendChild(messageSpan);
-        alertDiv.appendChild(closeButton);
+            alertDiv.appendChild(messageSpan);
+            alertDiv.appendChild(closeButton);
 
-        document.getElementById('alerts-container').appendChild(alertDiv);
+            document.getElementById('alerts-container').appendChild(alertDiv);
         }
 
 
@@ -1393,7 +1392,7 @@
                 success: function (response) {
                     // $('#spinner-container').hide();
                     showAlert("Enquiry submitted successfully.😎", 'success');
-                    console.log("formData",response);
+                    console.log("formData", response);
                     // swal.fire(response.message, {
                     //     icon: "success",
                     //     button: "ok",

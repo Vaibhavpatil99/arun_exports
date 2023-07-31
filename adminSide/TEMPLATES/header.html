@@ -179,7 +179,7 @@
     .l-navbar {
       left: 0;
       padding: 1rem 1rem 0 0;
-      
+
     }
 
     .showD {
@@ -191,7 +191,8 @@
     }
 
   }
-/* 
+
+  /* 
   @media screen and (max-width: 768px) {
 
     .nav_icon {
@@ -216,13 +217,13 @@
   <!-- Example: -->
 
 
-  <div id="body-pd">
-    <div class="header" id="header">
+  <div id="body-pd" >
+    <div class="header shadow-sm" style="background-color: #f4f5ff;" id="header">
       <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #a56a44;"></i> </div>
       <!-- <li class="nav-item">
         <a class="nav-link">hello, {{user.username}}</a>
       </li> -->
-      
+
       <div class="d-flex">
         <!-- <div class="header_img">
           <img src="{% static 'images/userlogo.png' %}" alt=""> 
@@ -236,16 +237,17 @@
 
     <div class="l-navbar" id="nav-bar" style="background-color: #a56a44;">
       <nav class="nav">
-        <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ARUN EXPORTS</span> </a>
+        <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ARUN
+              EXPORTS</span> </a>
           <div class="nav_list">
             <a href="/" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span
                 class="nav_name">Home</span> </a>
             <a href="/products/" class="nav_link"> <i class='bx bx-user nav_icon'></i>
               <span class="nav_name">Products</span> </a>
-              {% if user.is_superuser%}
+            {% if user.is_superuser%}
             <a href="/addProduct/" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
               <span class="nav_name">Add Products</span> </a>
-              {% endif %}
+            {% endif %}
             <a href="/about-us/" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span
                 class="nav_name">About Us</span> </a>
             <a href="/enquiries/" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span
@@ -259,28 +261,28 @@
                 class="nav_name">Stats</span> </a> -->
 
           </div>
-        </div> 
+        </div>
         <div>
           {% if user.is_authenticated %}
 
           <a href="/logout/" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
-            class="nav_name">SignOut</span> 
-        </a>
-          
+              class="nav_name">SignOut</span>
+          </a>
+
           {% else %}
 
-          <a href="/login/" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span
-            class="nav_name">Sign In</span> 
+          <a href="/login/" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Sign
+              In</span>
           </a>
-                  <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                   <a class="nav-link">hello, {{user.username}}</a>
                   </li> -->
-                  
-          {% endif %}
-          
 
-          
-          
+          {% endif %}
+
+
+
+
         </div>
       </nav>
     </div>

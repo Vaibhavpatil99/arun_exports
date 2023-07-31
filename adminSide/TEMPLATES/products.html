@@ -309,9 +309,9 @@ article:nth-child(4){
   }
 
   /*Move left*/
-  .card:hover {
+  /* .card:hover {
     box-shadow: 0 .5rem 1rem #D1D9E6;
-  }
+  } */
 
   .card:hover .card__name {
     left: 0;
@@ -342,6 +342,80 @@ article:nth-child(4){
       margin-right: auto;
     }
   }
+
+
+  .viewBtn {
+  --primary-color: #cf987f;
+  --secondary-color: #fff;
+  --hover-color: #111;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 5px;
+  color: var(--secondary-color);
+  padding: 0.5em 1.8em;
+  /* background: var(--primary-color); */
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+  color: #a56a44;
+  /* border: 1px solid grey; */
+}
+
+.viewBtn .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewBtn .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  /* background: var(--primary-color); */
+  /* background-color: #a56a44; */
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+
+.viewBtn .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid #a56a44;
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.viewBtn:hover {
+  /* background-color: var(--hover-color); */
+  background-color: #e9cfc4;
+  /* border: 0.2px solid grey */
+}
+
+.viewBtn:hover .arrow {
+  /* background: var(--secondary-color); */
+  background: #a56a44;
+}
+
+.viewBtn:hover .arrow:before {
+  right: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .product-img{
+    height: 200px;
+  }
+}
 
   .swiper {
     width: 100%;
@@ -446,24 +520,37 @@ article:nth-child(4){
 
     </div>
     <hr>
-    <div class="row d-flex justify-content-center justify-content-md-start " id="dataList">
+    <div class="row d-flex justify-content-center justify-content-center " id="dataList">
       {% for e in data %}
 
-      <div class="backg col-4 m-md-3 m-1 card" style="width: 18rem; padding: 0px;">
+      <div class=" col-4 m-md-3 m-1 border py-2 px-2 rounded" style="width: 20rem; padding: 0px; background-color: white;">
         <div class="row g-0">
 
           {% with e.images.first as first_image %}
           {% if first_image %}
-          <div class="col-4 col-md-12">
-            <img src="{{ first_image.image.url }}" class="card-img-top image-field" alt="Product Image">
+          <div class="col-4 col-md-12 p-md-3 d-flex justify-content-center align-items-center">
+            <img src="{{ first_image.image.url }}" class="image-field rounded-md product-img" alt="Product Image">
           </div>
           {% endif %}
           {% endwith %}
 
-          <div class="col-8">
-            <div class="card-body">
-              <h5 class="card-title">{{e.name}}</h5>
-              <a href="/product/{{e.id}}" class="btn text-light " style="background: #a56a44;">View</a>
+          <div class="col-8 col-md-12">
+            <div class=" d-flex flex-column justify-content-center align-items-center">
+              <h5 class="" style="font-weight:600; font-size:large;" >{{e.name}}</h5>
+              <p class="" style="color: grey;" >{{e.category}}</p>
+              <a href="/product/{{e.id}}" >
+              
+
+                <button class="viewBtn border border-lg">
+                  Sign up
+                  <div class="arrow-wrapper">
+                      <div class="arrow"></div>
+              
+                  </div>
+              </button>
+              </a>
+
+              
             </div>
           </div>
         </div>
@@ -550,7 +637,7 @@ article:nth-child(4){
           showInHtml = filteredData.map((e, index) => {
             return `
         
-              <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
+              <div class=" col-4 m-3 card" style="width: 18rem; padding: 0px;">
                 <div class="row g-0">
                 
                   <div class="col-4 col-md-12">
@@ -608,7 +695,7 @@ article:nth-child(4){
           showInHtml = filteredData.map((e, index) => {
             return `
         
-          <div class="backg col-4 m-3 card" style="width: 18rem; padding: 0px;">
+          <div class=" col-4 m-3 card" style="width: 18rem; padding: 0px;">
         <div class="row g-0">
 
           <div class="col-4 col-md-12">

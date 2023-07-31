@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Your Website Title{% endblock %}</title>
   <!-- Include your CSS and other common meta tags here -->
   {% load static %}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 
-<!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
-<!-- <script src="{% static 'script.js' %}"></script> -->
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "i7snsrb66e");
+  </script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+  <!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
+  <!-- <script src="{% static 'script.js' %}"></script> -->
+
 </head>
-<body style="padding: 0px;">
+
+<body style="padding: 0px; background-color: #f4f5ff;">
   {% include 'header.html' %}
-  
+
   {% block content %}
   <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam enim eum itaque nulla commodi, iure vero, dolor impedit blanditiis, consequatur reprehenderit adipisci fuga. Corporis ducimus rem, perspiciatis animi deleniti aliquid temporibus officia, illo modi, ut aspernatur aliquam vel. Doloribus consectetur minima repellat eos a! Ratione laudantium id enim, blanditiis possimus officia voluptate sint error ut ex asperiores ipsam eos itaque accusamus ducimus ad obcaecati modi, nam explicabo voluptatem, optio autem sunt hic. Id cum tenetur quibusdam, dolorum eos est ex iste exercitationem perferendis impedit natus harum nihil beatae accusamus rem sequi recusandae repellat, eius quo quaerat a nesciunt doloremque illo!</p> -->
   {% endblock %}
 
   {% comment %}
   {% include 'footer.html' %}
-{% endcomment %}
+  {% endcomment %}
   <!-- Include your JavaScript files here -->
 </body>
+
 </html>
