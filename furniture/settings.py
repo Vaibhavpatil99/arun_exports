@@ -58,7 +58,7 @@ ROOT_URLCONF = 'furniture.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, '/TEMPLATES'],
+        'DIRS': [os.path.join(BASE_DIR, '/TEMPLATES')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
