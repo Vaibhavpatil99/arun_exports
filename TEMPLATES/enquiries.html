@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+
+<style>
+    .con-div{
+            padding: 30px;
+        }
+    @media screen and (max-width: 768px) {
+        .msg{
+            display: none;
+        }
+        .id{
+            display: none;
+        }
+        .pid{
+            display: none;
+        }
+        .container div{
+            text-align: center;
+            padding: 0px;
+            font-size: smaller;
+        }
+    }
+</style>
+
+
+
+<section class="product-section mx-md-5">
+    <div class="container ">
+        <!-- Product content goes here  px-5 py-3 bg-light border rounded mt-5 -->
+
+
+        <div class="con-div border rounded " style="margin-top: 100px;">
+
+            <div>
+                <h1 class="" style="color: #a56a44; font-weight: 600;">Enquiry List</h1>
+            </div>
+            <table id="myTable" class="display border">
+                <thead>
+                    <tr>
+                        <th class="id">Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Nummer</th>
+                        <th class="msg">Message</th>
+                        <th>Product Name</th>
+                        <th class="pid">Product Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in enquiries %}
+                    <tr>
+                        <td class="id">{{e.id}}</td>
+                        <td>{{e.name}}</td>
+                        <td>{{e.email}}</td>
+                        <td>{{e.contact_no}}</td>
+                        <td class="msg">{{e.message}}</td>
+                        <td>{{e.product.name}}</td>
+                        <td class="pid">{{e.product.product_code}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+
+
+
+
+
+
+</script>
+
+{% endblock %}
