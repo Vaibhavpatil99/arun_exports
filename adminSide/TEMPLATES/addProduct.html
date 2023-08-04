@@ -222,6 +222,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Product Code</th>
                         <th>Category</th>
                         <th>Action</th>
                     </tr>
@@ -230,6 +231,7 @@
                     {% for e in data %}
                     <tr>
                         <td>{{e.name}}</td>
+                        <td>{{e.product_code}}</td>
                         <td>{{e.category}}</td>
                         <td> <a id="deleteProduct" onclick="deleteProduct('{{e.id}}')"> <i class='bx bx-trash'></i></a>
                         </td>
@@ -242,6 +244,21 @@
     </div>
 </section>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        console.log("{{ message }}")
+        swal.fire('{{message}}', {
+            icon: "warning",
+            button: "ok",
+            closeOnClickOutside: false,
+        })
+
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();

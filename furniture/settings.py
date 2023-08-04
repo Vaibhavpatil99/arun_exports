@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-u!=gmqkfw-$gw0aqw4qpr+=7k0)qe11z0syf18kwbq6%ub*$r3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['www.arunartexports.com', 'www.arunartexports.com']
 # ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
 
@@ -83,29 +84,41 @@ WSGI_APPLICATION = 'furniture.wsgi.application'
 #     }
 # }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'HOST': 'containers-us-west-188.railway.app',
+        'PORT': '6840',
+        'USER': 'postgres',
+        'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
+    }
+}
+
+
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'HOST': 'containers-us-west-188.railway.app',
-#         'PORT': '6840',
-#         'USER': 'postgres',
-#         'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'furniture_arun_exports',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'USER': 'root',
+#         'PASSWORD': 'vaibhav',
 #     }
 # }
 
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'furniture_arun_exports',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'vaibhav',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'arunart_arunartexports',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'USER': 'arunart_arunart',
+#         'PASSWORD': 'Arunart@mysql',
+#     }
+# }
 
 
 # Password validation
@@ -145,7 +158,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

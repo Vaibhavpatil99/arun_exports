@@ -118,26 +118,16 @@ def addProducts(request):
             category = request.POST.get('category')
             images = request.FILES.getlist('image')
 
+            if Products.objects.filter(product_code=product_code).exists():
+                print("Product code already exists.")
+                messages.error(request, "Product code already exists.")
+                return render(request, 'addProduct.html', {'data': data})
+
             product = Products.objects.create(name=name, desc=description, category=category, product_code=product_code)
             # product.save()
 
             for image in images:
                 Image.objects.create(product=product, image=image)
-
-            # imagesArray = []
-            # for image in images:
-            #     imagesArray.append(image)
-
-            # image_paths_str = ','.join(str(path) for path in imagesArray)
-
-            # product = Products(name=name, disc=description, img= image_paths_str)
-            # product.save()
-
-            # print(name, description, images, request.POST)
-
-            # for image in images:
-            #         product.create(img=image)
-
 
             return render(request, 'addProduct.html', {'data': data})
             # response = redirect('/')
