@@ -84,16 +84,16 @@ WSGI_APPLICATION = 'furniture.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'HOST': 'containers-us-west-188.railway.app',
-        'PORT': '6840',
-        'USER': 'postgres',
-        'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'HOST': 'containers-us-west-188.railway.app',
+#         'PORT': '6840',
+#         'USER': 'postgres',
+#         'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
+#     }
+# }
 
 
 
