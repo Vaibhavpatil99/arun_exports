@@ -27,8 +27,8 @@ def contact_us(request):
 
 
 def home(request):
-    return HttpResponse("<h1>Page was found</h1>")
-    # return render(request, 'index.html')
+    # return HttpResponse("<h1>Page was found</h1>")
+    return render(request, 'index.html')
 
 
     # if 'name' in request.session:
