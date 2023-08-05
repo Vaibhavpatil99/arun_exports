@@ -484,7 +484,7 @@ article:nth-child(4){
       <div class="selectBox mx-2">
         <!-- <label for="">select Category</label> -->
         <select name="category" id="dataCategory" class="" onchange="searchCategory()">
-          <option value=""></option>
+          <option value="">Select Category</option>
           <option value="Living Room Furniture">Living Room Furniture</option>
           <option value="Dining & Kitchen Furniture">Dining & Kitchen Furniture</option>
           <option value="Bar Furniture">Bar Furniture</option>
@@ -637,22 +637,40 @@ article:nth-child(4){
           showInHtml = filteredData.map((e, index) => {
             return `
         
-              <div class=" col-4 m-3 card" style="width: 18rem; padding: 0px;">
-                <div class="row g-0">
-                
-                  <div class="col-4 col-md-12">
-                    <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+
+              
+
+              <div class=" col-4 m-md-3 m-1 border py-2 px-2 rounded" style="width: 20rem; padding: 0px; background-color: white;">
+        <div class="row g-0">
+
+          
+          <div class="col-4 col-md-12 p-md-3 d-flex justify-content-center align-items-center">
+            <img src="${e.image}" class="image-field rounded-md product-img" alt="Product Image">
+          </div>
+          
+
+          <div class="col-8 col-md-12">
+            <div class=" d-flex flex-column justify-content-center align-items-center">
+              <h5 class="" style="font-weight:600; font-size:large;" >${e.name}</h5>
+              <p class="" style="color: grey;" >{{e.category}}</p>
+              <a href="/product/${e.id}" >
+              
+
+                <button class="viewBtn border border-lg">
+                  VIEW
+                  <div class="arrow-wrapper">
+                      <div class="arrow"></div>
+              
                   </div>
-                
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">${e.name}</h5>
-                    
-                      <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </button>
+              </a>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
             `;
           }).join('');
         } else {
@@ -695,18 +713,32 @@ article:nth-child(4){
           showInHtml = filteredData.map((e, index) => {
             return `
         
-          <div class=" col-4 m-3 card" style="width: 18rem; padding: 0px;">
+            <div class=" col-4 m-md-3 m-1 border py-2 px-2 rounded" style="width: 20rem; padding: 0px; background-color: white;">
         <div class="row g-0">
 
-          <div class="col-4 col-md-12">
-            <img src="${e.image}" class="card-img-top image-field" alt="Product Image">
+          
+          <div class="col-4 col-md-12 p-md-3 d-flex justify-content-center align-items-center">
+            <img src="${e.image}" class="image-field rounded-md product-img" alt="Product Image">
           </div>
+          
 
-          <div class="col-8">
-            <div class="card-body">
-              <h5 class="card-title">${e.name}</h5>
-            
-              <a href="/product/${e.id}" class="btn text-light " style="background: #a56a44;">View</a>
+          <div class="col-8 col-md-12">
+            <div class=" d-flex flex-column justify-content-center align-items-center">
+              <h5 class="" style="font-weight:600; font-size:large;" >${e.name}</h5>
+              <p class="" style="color: grey;" >{{e.category}}</p>
+              <a href="/product/${e.id}" >
+              
+
+                <button class="viewBtn border border-lg">
+                  VIEW
+                  <div class="arrow-wrapper">
+                      <div class="arrow"></div>
+              
+                  </div>
+              </button>
+              </a>
+
+              
             </div>
           </div>
         </div>
