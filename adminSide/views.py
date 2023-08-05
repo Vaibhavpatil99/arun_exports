@@ -10,7 +10,7 @@ import json
 import random
 
 from django.shortcuts import redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
 # Create your views here.
@@ -26,8 +26,11 @@ def contact_us(request):
     return render(request, 'contact-us.html')
 
 
-def home(request, template= 'index.html'):
-    return render(request, template, {})
+def home(request):
+    return HttpResponse("<h1>Page was found</h1>")
+    # return render(request, 'index.html')
+
+
     # if 'name' in request.session:
     #     request.session.modified = True
     #     data = Products.objects.all()
