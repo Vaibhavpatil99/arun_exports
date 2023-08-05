@@ -26,8 +26,8 @@ def contact_us(request):
     return render(request, 'contact-us.html')
 
 
-def home(request):
-    return render(request, 'index.html')
+def home(request, template= 'index.html'):
+    return render(request, template, {})
     # if 'name' in request.session:
     #     request.session.modified = True
     #     data = Products.objects.all()
