@@ -84,29 +84,29 @@ WSGI_APPLICATION = 'furniture.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'HOST': 'containers-us-west-188.railway.app',
-        'PORT': '6840',
-        'USER': 'postgres',
-        'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
-    }
-}
-
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'furniture_arun_exports',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'USER': 'root',
-#         'PASSWORD': 'vaibhav',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'HOST': 'containers-us-west-188.railway.app',
+#         'PORT': '6840',
+#         'USER': 'postgres',
+#         'PASSWORD': '7TKZpVo2l9nmTKFq7qoy',
 #     }
 # }
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'furniture_arun_exports',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': 'vaibhav',
+    }
+}
 
 
 # DATABASES = {
@@ -120,6 +120,16 @@ DATABASES = {
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'arunart_arunartexports',
+#         'HOST': '173.212.192.47',
+#         'PORT': '3478',
+#         'USER': 'arunart_arunart',
+#         'PASSWORD': 'Arunart@mysql',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
