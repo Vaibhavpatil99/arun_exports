@@ -201,22 +201,24 @@ def enquirySubmit(request, product_id):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
+        country_code = request.POST.get('country_code')
         contact_no = request.POST.get('contact_no')
         message = request.POST.get('message')
+        contact_number = country_code+contact_no
         Name = first_name + ' ' + last_name
-        print("Data:",first_name, last_name, email)
+        print("Data:",first_name, last_name, email, contact_number)
 
         messages.info(request, 'Enquiry getting submitted...')
         print('Enquiry not submitted successfully')
         subject = 'Enquiry from {}'.format(first_name)
-        email_body = 'Name: {}\nEmail: {}\ncontact_no: {}\nMessage: {}\nProduct Name: {}\nProduct Description: {}'.format(Name, email,contact_no, message, product.name, product.desc)
+        email_body = 'Name: {}\nEmail: {}\ncontact_number: {}\nMessage: {}\nProduct Name: {}\nProduct Description: {}'.format(Name, email,contact_number, message, product.name, product.desc)
         send_mail(subject, email_body, 'patilvb1999@gmail.com', ['patilvb1999@gmail.com'])
 
         user_subject = 'Enquiry Confirmation'
         user_email_body = 'Dear {},\n\nThank you for your enquiry. We will get back to you shortly.'.format(first_name)
         send_mail(user_subject, user_email_body, 'sender@example.com', [email])
 
-        enquiry = Enquiry(name=Name, email=email, contact_no=contact_no, message=message, product=product)
+        enquiry = Enquiry(name=Name, email=email, contact_no=contact_number, message=message, product=product)
         enquiry.save()
 
         messages.success(request, 'Enquiry submitted successfully.')
@@ -225,35 +227,6 @@ def enquirySubmit(request, product_id):
     else:
         return render(request, 'product.html')
 
-
-def enquiry_submit(request, id):
-    # product = Products.objects.get(id=id)
-    if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        contact_no = request.POST.get('contact_no')
-        message = request.POST.get('message')
-        # Compose the email message
-        Name = first_name + ' ' + last_name
-        print(Name, email, message, contact_no)
-
-        # Send the email to the owner
-
-        # subject = 'Enquiry from {}'.format(first_name)
-        # email_body = 'Name: {}\nEmail: {}\ncontact_no: {}\nMessage: {}\nProduct Name: {}\nProduct Description: {}'.format(Name, email,contact_no, message, product.name, product.desc)
-        # send_mail(subject, email_body, 'patilvb1999@gmail.com', ['patilvb1999@gmail.com'])
-
-
-        # Send a confirmation email to the user
-
-        # user_subject = 'Enquiry Confirmation'
-        # user_email_body = 'Dear {},\n\nThank you for your enquiry. We will get back to you shortly.'.format(first_name)
-        # send_mail(user_subject, user_email_body, 'sender@example.com', [email])
-
-        return redirect('products')
-    else:
-        return render(request, 'enquiry.html')
     
     
 def enquiries(request):

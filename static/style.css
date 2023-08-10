@@ -301,9 +301,9 @@ svg {
   justify-content: center;
 }
 
-.grid-item .logo {
+/* .grid-item .logo {
   transform: rotate(90deg);
-}
+} */
 
 .loading-overlay {
   position: fixed;

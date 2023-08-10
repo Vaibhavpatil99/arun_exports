@@ -1136,6 +1136,9 @@
         height: 100%;
         object-fit: cover;
     }
+    #errorBox p{
+        color: red;
+    }
 </style>
 
 
@@ -1204,14 +1207,9 @@
                         <div class="">
                             <div class=" d-none d-md-block">
                                 <h1 class="m-0" style="text-transform: uppercase;">{{ data.0.name}}</h1>
-                                <h1 class="m-0 text-align-center" style="font-size: 1.5rem; color: #a56a44;">
-                                    {% if data.0.product_code %}
-                                    ({{ data.0.product_code}})
-                                    {% endif %}
-                                </h1>
 
                             </div>
-                            <p class="my-3"><span  style="color: #a56a44;"> Category: </span>{{ data.0.category}}</p>
+                            <p class="my-3"><span style="color: #a56a44;"> Category: </span>{{ data.0.category}}</p>
                             <p>{{ data.0.desc}}</p>
 
                         </div>
@@ -1239,17 +1237,16 @@
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 2p;">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <!-- <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class=" close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div> -->
                 <div class="modal-body m-0 p-0">
+
                     <form class="form" method="POST" id="myForm" action="enquirySubmit">
                         {% csrf_token %}
+                        <div class="modal-header">
 
-                        <p>Enquiry form</p>
+                            <h4>Enquiry form</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="errorBox"></div>
                         <div class="flex">
                             <label>
                                 <input required="" placeholder="" type="text" class="input" id="first_name"
@@ -1268,19 +1265,30 @@
                             <input required="" placeholder="" type="email" class="input" id="email" name="email">
                             <span>email</span>
                         </label>
+                        <div class="row">
 
-                        <label>
-                            <input required="" type="tel" placeholder="" class="input" id="contact_no"
-                                name="contact_no">
-                            <span>contact number</span>
-                        </label>
+                            <label class="col-4" style="padding-right: 2px;">
+                                <select required="" class="input" id="country_code" name="country_code">
+                                    <!-- Options will be populated dynamically using JavaScript -->
+                                </select>
+                                <!-- <span class="">country code</span> -->
+                            </label>
+
+                            <label class="col-8" style="padding-left: 2px;">
+                                <input required="" type="tel" placeholder="" class="input" id="contact_no"
+                                    name="contact_no">
+                                <span>contact number</span>
+                            </label>
+                        </div>
+
                         <label>
                             <textarea required="" rows="3" placeholder="" class="input01" id="message"
                                 name="message"></textarea>
                             <span>message</span>
                         </label>
 
-                        <button type="submit" class="fancy" data-bs-dismiss="modal">
+                        <!-- data-bs-dismiss="modal" -->
+                        <button type="submit" class="fancy">
                             <span class="top-key"></span>
                             <span class="text">submit</span>
                             <!-- <span onclick="sendEnquiryData()" class="text">submit</span> -->
@@ -1288,11 +1296,9 @@
                             <span class="bottom-key-2"></span>
                         </button>
                     </form>
+
+
                 </div>
-                <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
             </div>
         </div>
     </div>
@@ -1315,6 +1321,8 @@
 </section>
 <!-- SweetAlert CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.9.19/libphonenumber-js.min.js"></script>
+
 
 <!-- 
 {% if message %}
@@ -1335,6 +1343,31 @@
 
 
 <script>
+
+    function getCountries() {
+        fetch('https://cuik-projects.github.io/country-list/countries.json')
+            .then(response => response.json())
+            .then(data => populateCountryDropdown(data))
+            .catch(error => console.error('Error fetching countries:', error));
+    }
+
+    function populateCountryDropdown(countries) {
+        const countryDropdown = document.getElementById('country_code');
+        countries.forEach(country => {
+            // console.log('Country', country.callingCodes)
+            const option = document.createElement('option');
+            option.value = country.dial_code;
+            option.textContent = `${country.name} (${country.dial_code})`;
+            countryDropdown.appendChild(option);
+        });
+        const defaultCountry = '+91';
+        countryDropdown.value = defaultCountry;
+    }
+
+    // Call the function to fetch countries when the page loads
+    getCountries();
+
+
     const activeImage = document.querySelector(".product-image .active");
     const fullSizeImage = document.querySelector(".fullSizeImage");
     const productImages = document.querySelectorAll(".image-list img");
@@ -1352,6 +1385,8 @@
     productImages.forEach(image => image.addEventListener("click", changeImage));
     // $('#spinner-container').hide();
     $(document).ready(function () {
+
+
 
         function showAlert(message, alertType) {
             console.log(message, alertType);
@@ -1376,34 +1411,63 @@
 
 
         $('#myForm').submit(function (event) {
-            event.preventDefault(); // Prevent default form submission
-            // $('#spinner-container').show();
-            // Serialize the form data
-            var formData = $(this).serialize();
-            console.log("formData");
+            event.preventDefault();
 
-            showAlert('Enquiry getting submitted...', 'info');
-            // Send AJAX request
-            $.ajax({
-                url: '/enquirySubmit/{{ data.0.id }}/',
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function (response) {
-                    // $('#spinner-container').hide();
-                    showAlert("Enquiry submitted successfully.😎", 'success');
-                    console.log("formData", response);
-                    // swal.fire(response.message, {
-                    //     icon: "success",
-                    //     button: "ok",
-                    //     closeOnClickOutside: false,
-                    // })
-                },
-                error: function (xhr, status, error) {
-                    $('#spinner-container').hide();
-                    console.error('Request failed. Status:', xhr.status);
-                }
-            });
+            var regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            var contact_regex =/^[0-9]{10}$/;
+            const errorBox = document.getElementById('errorBox');
+            if (regex.test($('#first_name').val())) {
+                $('#errorBox').empty();
+                const errMsg = document.createElement('p');
+                errMsg.textContent = 'First name should not contains special characters.'
+                errorBox.appendChild(errMsg)
+            }
+            else if (regex.test($('#last_name').val())) {
+                $('#errorBox').empty();
+                const errMsg = document.createElement('p');
+                errMsg.textContent = 'Last name should not contains special characters.'
+                errorBox.appendChild(errMsg)
+            }
+            else if (!contact_regex.test($('#contact_no').val())) {
+                $('#errorBox').empty();
+                const errMsg = document.createElement('p');
+                errMsg.textContent = 'Invalid contact number. It should have 10 digits and no alphabets or special characters.'
+                errorBox.appendChild(errMsg)
+            }
+            else {
+
+
+                // $('#spinner-container').show();
+                // Serialize the form data
+                var formData = $(this).serialize();
+                console.log("formData");
+                $('#errorBox').empty();
+                $('.btn-close').click();
+                showAlert('Enquiry getting submitted...', 'info');
+                // Send AJAX request
+                $.ajax({
+                    url: '/enquirySubmit/{{ data.0.id }}/',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        // $('#spinner-container').hide();
+                        
+
+                        showAlert("Enquiry submitted successfully.", 'success');
+                        console.log("formData", response);
+                        // swal.fire(response.message, {
+                        //     icon: "success",
+                        //     button: "ok",
+                        //     closeOnClickOutside: false,
+                        // })
+                    },
+                    error: function (xhr, status, error) {
+                        $('#spinner-container').hide();
+                        console.error('Request failed. Status:', xhr.status);
+                    }
+                });
+            }
         });
     });
 

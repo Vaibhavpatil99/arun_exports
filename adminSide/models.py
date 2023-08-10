@@ -14,7 +14,7 @@ from django.db import models
 
 class Products(models.Model):
     name = models.CharField(max_length=255, default="")
-    desc = models.CharField(max_length=255, default="")
+    desc = models.TextField(default="")
     product_code = models.CharField(max_length=255, default="")
     category = models.CharField(max_length=255, default="")
     # imgs = models.ForeignKey(Image, related_name='images', on_delete=models.CASCADE)

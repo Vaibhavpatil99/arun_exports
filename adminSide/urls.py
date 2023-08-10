@@ -20,8 +20,8 @@ urlpatterns = [
     path('delete-product/<product_id>/', views.deleteProduct, name='deleteProduct'),
     path('contact-us/', views.contact_us, name='contact_us'),
     path('jsonProductdata/', views.jsonProductdata, name='jsonProductdata'),
-    path('enquiry-submit/<id>/', enquiry_submit, name='enquiry_submit'),
     path('enquirySubmit/<product_id>/', enquirySubmit, name='enquirySubmit'),
+    # path('enquiry-submit/<id>/', enquiry_submit, name='enquiry_submit'),
     path('enquiries/', enquiries, name='enquiries'),
 
     # path('product-data', views.productData, name='prod'),
