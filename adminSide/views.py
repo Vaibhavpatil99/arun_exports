@@ -121,20 +121,34 @@ def addProducts(request):
             category = request.POST.get('category')
             images = request.FILES.getlist('image')
 
+
+
             if Products.objects.filter(product_code=product_code).exists():
                 print("Product code already exists.")
                 messages.error(request, "Product code already exists.")
                 return render(request, 'addProduct.html', {'data': data})
 
             product = Products.objects.create(name=name, desc=description, category=category, product_code=product_code)
-            # product.save()
 
             for image in images:
                 Image.objects.create(product=product, image=image)
 
+            specifications = []
+            for i in range(1, 6):  # Adjust the range based on the number of added specifications
+                specHeader = request.POST.get(f'specification_header_{i}')
+                specDescription = request.POST.get(f'specification_description_{i}')
+                if specHeader and description:
+                    # specifications.append({'header': header, 'description': specDescription})
+                    specification = Specification.objects.create(header=specHeader, description=specDescription)
+                    specifications.append(specification)
+
+            print("specifications", specifications,Products)
+            for specification in specifications:
+                product.specifications.add(specification)
+
+
             return render(request, 'addProduct.html', {'data': data})
-            # response = redirect('/')
-            # return response
+
         else:
             return render(request, 'addProduct.html', {'data': data})
     else:
@@ -221,7 +235,7 @@ def enquirySubmit(request, product_id):
         enquiry = Enquiry(name=Name, email=email, contact_no=contact_number, message=message, product=product)
         enquiry.save()
 
-        messages.success(request, 'Enquiry submitted successfully.')
+        # messages.success(request, 'Enquiry submitted successfully.')
         print('Enquiry submitted successfully')
         return JsonResponse({'message': 'Enquiry submitted successfully.'})
     else:

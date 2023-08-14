@@ -150,15 +150,13 @@
     <div class="container ">
         <!-- Product content goes here  px-5 py-3 bg-light border rounded mt-5 -->
 
-        <form class="form border" style="margin-top: 100px;" method="POST" id="frm" enctype="multipart/form-data"
+        <form class="form border p-5" style="margin-top: 100px;" method="POST" id="frm" enctype="multipart/form-data"
             novalidate>
             {% csrf_token %}
             <div>
                 <h1 class="" style="color: #a56a44; font-weight: 600;">PRODUCT REGISTRATION</h1>
             </div>
-            <!-- <p class="title">Product Registration </p> -->
-            <!-- <p class="message">Signup now and get full access to our app. </p> -->
-            <div class="d-flex gap-2 flex-md-row flex-column">
+            <div class="d-flex gap-4 flex-md-row flex-column">
                 <label style="width: 100%;">
                     <input required="" placeholder="" name="name" type="text" id="productName" class="input">
                     <span>Product Name</span>
@@ -182,7 +180,7 @@
                     <span>Category</span>
                 </label>
             </div>
-            <div class="d-flex gap-2 flex-md-row flex-column">
+            <div class="d-flex gap-4 flex-md-row flex-column my-2">
 
                 <label style="width: 100%;">
                     <textarea name="description" id="productDescription" cols="30" rows="3" class="input"
@@ -203,10 +201,27 @@
                 </div>
 
             </div>
-            <!-- <div class="d-flex gap-2 flex-md-row flex-column">
+            <div>
+                <div id="specifications-container">
+                    <div class="specification-fields d-flex gap-4 flex-md-row flex-column justify-content-center align-items-center">
+                        <label style="width: 100%;">
+                            <input required="" type="text" class="input specification-header"
+                                name="specification_header_1" placeholder="">
+                            <span>Specification Header</span>
+                        </label>
+                        <label style="width: 100%;">
+                            <textarea required="" rows="1" class="input specification-description"
+                                name="specification_description_1" placeholder=""></textarea>
+                            <span>Specification Description</span>
+                        </label>
+                        <div>
+                            <button type="button" class="btn btn-secondary remove-specification"><i class='bx bxs-trash'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary fw-bold my-3" id="add-specification-button">+</button>
+            </div>
 
-                
-            </div> -->
             <div class="d-flex justify-content-end">
 
                 <button type="button" class="submit" id="submitBtn" style="background-color: #a56a44;">Submit</button>
@@ -244,25 +259,56 @@
     </div>
 </section>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {% if messages %}
-    {% for message in messages %}
-    <script>
-        console.log("{{ message }}")
-        swal.fire('{{message}}', {
-            icon: "warning",
-            button: "ok",
-            closeOnClickOutside: false,
-        })
+{% if messages %}
+{% for message in messages %}
+<script>
+    console.log("{{ message }}")
+    swal.fire('{{message}}', {
+        icon: "warning",
+        button: "ok",
+        closeOnClickOutside: false,
+    })
 
-    </script>
-    {% endfor %}
-    {% endif %}
+</script>
+{% endfor %}
+{% endif %}
 
 
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();
     });
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const addSpecificationButton = document.getElementById('add-specification-button');
+        const specificationsContainer = document.getElementById('specifications-container');
+        let specificationCounter = 2;  // Start from 2 since you already have one set of fields
+
+        addSpecificationButton.addEventListener('click', function () {
+            const specificationFields = document.querySelector('.specification-fields').cloneNode(true);
+            const removeButton = specificationFields.querySelector('.remove-specification');
+
+            // Update names or IDs of cloned fields
+            specificationFields.querySelector('.specification-header').setAttribute('name', `specification_header_${specificationCounter}`);
+            specificationFields.querySelector('.specification-description').setAttribute('name', `specification_description_${specificationCounter}`);
+
+            // Reset values of the cloned fields
+            specificationFields.querySelector('.specification-header').value = '';
+            specificationFields.querySelector('.specification-description').value = '';
+
+            removeButton.addEventListener('click', function () {
+                specificationFields.remove();
+            });
+
+            specificationsContainer.appendChild(specificationFields);
+            specificationCounter++;
+        });
+    });
+
+
+
 
 
     document.getElementById("submitBtn").addEventListener("click", function () {

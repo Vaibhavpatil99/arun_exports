@@ -1213,6 +1213,16 @@
                             <p>{{ data.0.desc}}</p>
 
                         </div>
+                        <div>
+                            <h3>Specification</h3>
+                            {% for spec in data.0.specifications.all %}
+                            <div class="d-flex">
+                                <p class="fw-bold">{{spec.header}}:</p>
+                                <p>{{spec.description}}</p>
+                            </div>
+                            
+                            {% endfor %}
+                        </div>
                         <button class="add-to-cart" data-bs-toggle="modal"
                             data-bs-target="#exampleModalCenter">Enquire</button>
                     </div>
