@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+
+<style>
+    .table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    #myTable {
+        width: 100%;
+        white-space: nowrap;
+    }
+</style>
+
+
+<section class="product-section mx-md-5">
+    <div class="container ">
+
+        <div class="my-5 border rounded p-4 table-container" style="background-color: white;">
+
+            <table id="myTable" class="display border">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Date Joined</th>
+                        <th>Last Login</th>
+                        <th>Is Superuser</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in allUsers %}
+                    <tr>
+                        <td>{{e.id}}</td>
+                        <td>{{e.username}}</td>
+                        <td>{{e.email}}</td>
+                        <td>{{e.date_joined}}</td>
+                        <td>{{e.last_login}}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <!-- <input class="form-check-input" type="checkbox" role="switch" id="is_superuser" {% if e.is_superuser %}checked{% endif %}> -->
+                                <input type="checkbox" class="toggle-switch form-check-input" data-user-id="{{ e.id }}" {% if e.is_superuser %}checked{% endif %} {% if e.username == user.username %} disabled {% endif %} >
+                            </div>
+                        </td>
+
+                        <!-- <td> <a id="deleteProduct" onclick="deleteProduct('{{e.id}}')"> <i class='bx bx-trash'></i></a>
+                        </td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+{% for message in messages %}
+<script>
+    console.log("{{ message }}")
+    swal.fire('{{message}}', {
+        icon: "warning",
+        button: "ok",
+        closeOnClickOutside: false,
+    })
+
+</script>
+{% endfor %}
+{% endif %}
+
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+
+        $(document).ready(function () {
+        $('.toggle-switch').change(function () {
+            const userId = $(this).data('user-id');
+            console.log(userId);
+            const isChecked = $(this).prop('checked');
+
+
+            
+        Swal.fire({
+            title: "Are you sure you want to change the superuser status of this user ?",
+            showDenyButton: true,
+            // showCancelButton: true,
+            confirmButtonText: "Save",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Saved!", "", "success");
+                window.location = `/toggle_superuser/${userId}/`
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+
+            // $.ajax({
+            //     url: `/toggle_superuser/${userId}/`,
+            //     method: 'POST',
+            //     dataType: 'json',
+            //     headers: {
+            //         'X-CSRFToken': csrftoken
+            //     },
+            //     success: function (data) {
+            //         if (data.status === 'success') {
+                        
+            //             console.log('Toggle successful');
+            //         } else {
+            //             console.error('Toggle failed');
+            //         }
+            //     },
+            //     error: function (error) {
+            //         console.error('Error toggling superuser status', error);
+            //     },
+            // });
+        });
+    });
+
+
+
+    });
+
+
+
+    // function deleteProduct(e) {
+    //     console.log("Product deleted", e)
+
+
+    //     Swal.fire({
+    //         title: "Are you sure you want to Delete The product ?",
+    //         showDenyButton: true,
+    //         // showCancelButton: true,
+    //         confirmButtonText: "Save",
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire("Saved!", "", "success");
+    //             window.location = `/delete-product/${e}`
+    //         } else if (result.isDenied) {
+    //             Swal.fire("Changes are not saved", "", "info");
+    //         }
+    //     });
+
+
+    // };
+
+
+
+
+</script>
+
+{% endblock %}

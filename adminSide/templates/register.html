@@ -18,6 +18,8 @@
         overflow: hidden;
     }
 
+
+
     .form_main::before {
         position: absolute;
         content: "";
@@ -30,6 +32,20 @@
         z-index: 1;
         border-radius: 30px;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+    }
+
+    @media screen and (max-width: 768px) {
+        .form_main {
+            width: 300px;
+            height: 500px;
+        }
+
+        .form_main::before {
+            width: 400px;
+            height: 400px;
+            left: -220px;
+            bottom: 70px;
+        }
     }
 
     .heading {
@@ -141,6 +157,8 @@
                     </path>
                 </svg>
                 <input type="password" name="password" class="inputField" id="password" placeholder="Password">
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
+
             </div>
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2e2e2e"
@@ -150,11 +168,13 @@
                     </path>
                 </svg>
                 <input type="password" class="inputField" id="ConfirmPassword" placeholder="Confirm Password">
+                <i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
+
             </div>
 
 
-            <button type="button" id="button">Submit</button>
-            <a class="forgotLink" href="#">Already Registered?, LogIn</a>
+            <button type="submit" id="button">Submit</button>
+            <a class="forgotLink" href="/login/">Already Registered?, LogIn</a>
         </form>
 
     </div>
@@ -162,8 +182,45 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{% if error_message %}
 <script>
-    document.getElementById("button").addEventListener("click", function () {
+    console.log("{{ error_message }}")
+    swal.fire('{{error_message}}', {
+        icon: "warning",
+        button: "ok",
+        closeOnClickOutside: false,
+    })
+</script>
+{% endif %}
+
+<script>
+
+
+const togglePassword = document.querySelector("#togglePassword");
+const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+    });
+    toggleConfirmPassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = ConfirmPassword.getAttribute("type") === "password" ? "text" : "password";
+        ConfirmPassword.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+    });
+
+
+    // document.getElementById("button").addEventListener("click", function () {
+    $('#frm').submit(function (event) {
+        event.preventDefault();
         console.log($('#ConfirmPassword').val() === $('#ConfirmPassword').val());
 
         if ($('#username').val() == "") {
@@ -206,7 +263,7 @@
                 denyButtonText: `No `,
             })
         }
-        else if ($('#password').val() !== $('#ConfirmPassword').val() ) {
+        else if ($('#password').val() !== $('#ConfirmPassword').val()) {
             Swal.fire({
                 title: 'Password and Confirm Password should be same',
                 icon: "warning",
@@ -220,22 +277,22 @@
             // document.getElementById("frm").submit();
 
             Swal.fire({
-            title: "Are you sure you want to Register ?",
-            showDenyButton: true,
-            // showCancelButton: true,
-            confirmButtonText: "Save",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire("Saved!", "", "success");
-              document.getElementById("frm").submit();
-            } else if (result.isDenied) {
-              Swal.fire("Changes are not saved", "", "info");
-            }
-          });
+                title: "Are you sure you want to Register ?",
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: "Save",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Saved!", "", "success");
+                    document.getElementById("frm").submit();
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
         }
 
 
-          
+
     });
 </script>
 

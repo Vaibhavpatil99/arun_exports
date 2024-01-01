@@ -4,207 +4,198 @@
 <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
 <!-- <script src="{% static 'js/sidebar.js' %}"></script> -->
-<style>
+<!-- <style>
   @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
-  :root {
-    --header-height: 3rem;
-    --nav-width: 68px;
-    --first-color: #4723D9;
-    --first-color-light: #AFA5D9;
-    --white-color: #F7F6FB;
-    --body-font: 'Nunito', sans-serif;
-    --normal-font-size: 1rem;
-    --z-fixed: 100
-  }
+</style> -->
 
-  *,
-  ::before,
-  ::after {
-    box-sizing: border-box
-  }
-
-  body {
+<style>
+  .search-input-container {
+    width: 220px;
     position: relative;
-    margin: var(--header-height) 0 0 0;
-    padding: 0 1rem;
-    font-family: var(--body-font);
-    font-size: var(--normal-font-size);
-    transition: .5s
   }
 
-  a {
-    text-decoration: none
-  }
-
-  .header {
-    width: 100%;
-    height: var(--header-height);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-    background-color: var(--white-color);
-    z-index: var(--z-fixed);
-    transition: .5s
-  }
-
-  .header_toggle {
-    color: var(--first-color);
-    font-size: 1.5rem;
-    cursor: pointer
-  }
-
-  .header_img {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden
-  }
-
-  .header_img img {
-    width: 40px
-  }
-
-  .l-navbar {
-    position: fixed;
-    top: 0;
-    left: -30%;
-    width: var(--nav-width);
-    height: 100vh;
-    background-color: var(--first-color);
-    padding: .5rem 1rem 0 0;
-    transition: .5s;
-    z-index: var(--z-fixed)
-  }
-
-  .nav {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden
-  }
-
-  .nav_logo,
-  .nav_link {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    align-items: center;
-    column-gap: 1rem;
-    padding: .5rem 0 .5rem 1.5rem
-  }
-
-  .nav_logo {
-    margin-bottom: 2rem
-  }
-
-  .nav_logo-icon {
-    font-size: 1.25rem;
-    color: var(--white-color)
-  }
-
-  .nav_logo-name {
-    color: var(--white-color);
-    font-weight: 700
-  }
-
-  .nav_link {
-    position: relative;
-    color: var(--first-color-light);
-    margin-bottom: 1.5rem;
-    transition: .3s
-  }
-
-  .nav_link:hover {
-    color: var(--white-color)
-  }
-
-  .nav_icon {
-    font-size: 1.25rem
-  }
-
-  .showD {
-    left: 0
-  }
-
-  .body-pd {
-    padding-left: calc(var(--nav-width) + 188px)
-  }
-
-  .active {
-    color: var(--white-color)
-  }
-
-  .active::before {
-    content: '';
+  .search-icon {
+    all: unset;
     position: absolute;
-    left: 0;
-    width: 2px;
-    height: 32px;
-    background-color: var(--white-color)
+    right: 10px;
+    top: calc(50% + 5px);
+    transform: translateY(calc(-50% - 5px));
   }
 
-  .height-100 {
-    height: 100vh
+  .search-input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    transition: .2s linear;
+    border: 2.5px solid black;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 
-  .showD {
-    width: calc(var(--nav-width) + 156px)
+  .search-input:focus {
+    outline: none;
+    border: 0.5px solid black;
+    box-shadow: -5px -5px 0px black;
+  }
+
+  .search-input-container:hover>.search-icon {
+    animation: anim 1s linear infinite;
+  }
+
+  @keyframes anim {
+
+    0%,
+    100% {
+      transform: translateY(calc(-50% - 5px)) scale(1);
+    }
+
+    50% {
+      transform: translateY(calc(-50% - 5px)) scale(1.1);
+    }
+  }
+
+  .navbarMainDiv {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+
+  .hamburger {
+    /* flex-direction: column; */
+    cursor: pointer;
+    display: none;
+  }
+
+  .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+  }
+
+  .navLinks {
+    display: flex;
+    list-style: none;
+    width: 100%;
+  }
+
+  .navLinks li {
+    margin: 0 15px;
+  }
+
+  .navLinks a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  /* .navLinks a:hover {
+        color: #FF5733;
+    } */
+
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .navLinks {
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #333;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: left 0.5s;
+    }
+
+    .navLinks.active {
+      left: 0;
+    }
+
+    .list-div {
+      flex-direction: column;
+      height: 75%;
+    }
   }
 
   @media screen and (min-width: 768px) {
-    body {
-      margin: calc(var(--header-height) + 1rem) 0 0 0;
-      padding-left: calc(var(--nav-width) + 2rem);
-      /* font-size: 3rem */
-
+    .hamburger {
+      display: none;
     }
+  }
 
-    .header {
-      height: calc(var(--header-height) + 1rem);
-      padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
-    }
+  /* Add this to hide the close button initially */
+  .close-btn {
+    display: none;
+  }
 
-    .header_img {
-      width: 40px;
-      height: 40px
-    }
+  /* Adjust the positioning for the close button */
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+  }
 
-    .header_img img {
-      width: 45px
-    }
-
-    .l-navbar {
-      left: 0;
-      padding: 1rem 1rem 0 0;
-
-    }
+  .list-div {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
 
 
 
-    .body-pd {
-      padding-left: calc(var(--nav-width) + 188px)
-    }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: smaller;
 
   }
 
-  /* 
-  @media screen and (max-width: 768px) {
+  .dropdown a {
+    font-weight: 500;
+  }
 
-    .nav_icon {
-      font-size: 2.25rem;
-    }
-    .l-navbar{
-      width: calc(var(--nav-width) + 556px)
-    }
+  .dropdown-content {
+    display: none;
 
-  } */
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+
+    transition: 0.5s linear ease-in-out;
+  }
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -216,103 +207,290 @@
   <!-- Include your navigation bar or header content here -->
   <!-- Example: -->
 
+  <div class="">
+    <div class="d-none d-md-flex justify-content-between align-items-center mx-3 py-2">
+      <div class="d-flex align-items-center">
 
-  <div id="body-pd">
-    <div class="header shadow-sm" style="background-color: #f4f5ff;" id="header">
-      <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #a56a44;"></i> </div>
-      <!-- <li class="nav-item">
-        <a class="nav-link">hello, {{user.username}}</a>
-      </li> -->
+        <a class=" navbar-brand fs-1"
+          style="font-weight: 700; font-family: 'GFS Didot', serif; font-family: 'Kalam', cursive;" href="/">Arun
+          Art Exports</a>
 
-      <div class="d-flex">
-        <!-- <div class="header_img">
-          <img src="{% static 'images/userlogo.png' %}" alt=""> 
-        </div> -->
-        {% if user.is_authenticated %}
-        <h4 style="color: #a56a44;">hello, {{user.username}}</h4>
-        {% endif %}
+
+        <form class="mx-3" role="search" id="searchForm">
+          <!-- <input class="form-control me-2" type="search" id="searchBox" placeholder="Search" aria-label="Search"> -->
+          <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+
+          <div class="search-input-container">
+            <input type="text" id="searchBox" name="text" class="search-input" placeholder="search...">
+            <button type="submit" class="search-icon">
+              <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path opacity="1" d="M14 5H20" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <path opacity="1" d="M14 8H17" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2" stroke="#000"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path opacity="1" d="M22 22L20 20" stroke="#000" stroke-width="3.5" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </g>
+              </svg>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="">
+        <div class="dropdown">
+          <div class="d-flex justify-content-center align-items-center dropbtn nav-link">
+
+            <i class='bx bxs-user-circle ' style="font-size: 40px;"></i>
+
+          </div>
+          <div class="dropdown-content " style="margin-left: -114px;">
+            <div class="">
+              {% if user.is_authenticated %}
+              <h5 class="m-3 text-dark">hello, {{user.username}}</h5>
+              {% endif %}
+              {% if user.is_authenticated %}
+              {% if user.is_superuser %}
+              <a href="/enquiries/">Enquiry List</a>
+              <a href="/addProduct/">Product Management</a>
+              <a href="/access_management/">Access Management</a>
+              {% endif %}
+              <a href="/logout/" style="color: red;">Logout</a>
+
+              {% else %}
+              <a href="/login/" style="color: green;">LogIn</a>
+              <a href="/register/">Register</a>
+
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
 
-    <div class="l-navbar" id="nav-bar" style="background-color: #a56a44;">
-      <nav class="nav">
-        <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ARUN
-              EXPORTS</span> </a>
-          <div class="nav_list">
-            <a href="/" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span
-                class="nav_name">Home</span> </a>
-            <a href="/products/" class="nav_link"> <i class='bx bx-user nav_icon'></i>
-              <span class="nav_name">Products</span> </a>
-            {% if user.is_superuser%}
-            <a href="/addProduct/" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-              <span class="nav_name">Add Products</span> </a>
-            <a href="/enquiries/" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span
-                class="nav_name">Enquiry List</span> </a>
-            {% endif %}
-            <a href="/about-us/" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span
-                class="nav_name">About Us</span> </a>
+    <!-- <div class="title-nav justify-content-center">
+      <h1 class="my-4">Arun Art Exports</h1>
+    </div> -->
 
-            <!-- <a href="/contact-us/" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span
-                class="nav_name">Contact Us</span></a>
 
-            <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span></a>
-            <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span
-                class="nav_name">Stats</span> </a> -->
 
+    <nav class="navbarMainDiv">
+      <div class="d-flex justify-content-between align-items-center">
+
+        <div class="hamburger" id="hamburger">
+          <i class='bx bx-menu' style="font-size: 2rem;"></i>
+        </div>
+
+
+        <a class="d-block d-md-none navbar-brand fs-1"
+          style="font-weight: 700; font-family: 'GFS Didot', serif; font-family: 'Kalam', cursive;" href="/">Arun
+          Art Exports</a>
+
+        <div class="d-block d-md-none">
+          <div class="dropdown">
+            <div class="d-flex justify-content-center align-items-center dropbtn nav-link">
+
+              <i class='bx bxs-user-circle ' style="font-size: 40px;"></i>
+
+            </div>
+            <div class="dropdown-content " style="margin-left: -114px;">
+              <div class="">
+                {% if user.is_authenticated %}
+                <h5 class="m-3 text-dark">hello, {{user.username}}</h5>
+                {% endif %}
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <a href="/enquiries/">Enquiry List</a>
+                <a href="/addProduct/">Product Management</a>
+                <a href="/access_management/">Access Management</a>
+
+                {% endif %}
+                <a href="/logout/" style="color: red;">Logout</a>
+
+                {% else %}
+                <a href="/login/" style="color: green;">LogIn</a>
+                <a href="/register/">Register</a>
+                {% endif %}
+
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          {% if user.is_authenticated %}
-
-          <a href="/logout/" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
-              class="nav_name">SignOut</span>
-          </a>
-
-          {% else %}
-
-          <a href="/login/" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Sign
-              In</span>
-          </a>
-          <!-- <li class="nav-item">
-                  <a class="nav-link">hello, {{user.username}}</a>
-                  </li> -->
-
-          {% endif %}
 
 
+      </div>
 
+      <ul class="navLinks mb-0" style="padding-left: 0px; z-index: 100;" id="navLinks">
+        <div class="d-flex justify-content-between">
+          <form class="d-flex d-md-none" role="search" id="searchForm">
+            <div class="search-input-container">
+              <input type="text" id="searchBox" name="text" class="search-input" placeholder="search...">
+              <button type="submit" class="search-icon">
+                <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path opacity="1" d="M14 5H20" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path opacity="1" d="M14 8H17" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2"
+                      stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path opacity="1" d="M22 22L20 20" stroke="#000" stroke-width="3.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </form>
+          <div class="close-btn fs-1" id="closeBtn">&times;</div>
+        </div>
+        <div class="list-div">
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Living Room Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Living_Room_Furniture/Sofas">Sofas</a>
+                <a href="/all_products/Living_Room_Furniture/Accent_Chairs">Accent Chairs</a>
+                <a href="/all_products/Living_Room_Furniture/Coffee_&_Accent_Table">Coffee & Accent Table</a>
+                <a href="/all_products/Living_Room_Furniture/TV_Stands_&_Media_Consoles">TV Stands & Media Consoles</a>
+                <a href="/all_products/Living_Room_Furniture/Ottomans_&_Benches">Ottomans & Benches</a>
+                <a href="/all_products/Living_Room_Furniture/Leather_Furniture">Leather Furniture</a>
+                <a href="/all_products/Living_Room_Furniture/Game_Tables">Game Tables</a>
+                <a href="/all_products/Living_Room_Furniture/Living_Room_New_&_Bestselling">Living Room New &
+                  Bestselling</a>
+                <a href="/all_products/Living_Room_Furniture/">All Living Room Furniture</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Kitchen Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Kitchen_Furniture/Kitchen_Islands/">Kitchen Islands</a>
+                <a href="/all_products/Kitchen_Furniture/Counter_Stools/">Counter Stools</a>
+                <a href="/all_products/Kitchen_Furniture/Kitchen_Tables/">Kitchen Tables</a>
+                <a href="/all_products/Kitchen_Furniture/Dining_Chairs/">Dining Chairs</a>
+                <a href="/all_products/Kitchen_Furniture/">All Kitchen Furniture</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Dining Room Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Dining_Room_Furniture/Dining_Tables/">Dining Tables</a>
+                <a href="/all_products/Dining_Room_Furniture/Dining_Chairs/">Dining Chairs</a>
+                <a href="/all_products/Dining_Room_Furniture/Bar_&_Counter_Stools/">Bar & Counter Stools</a>
+                <a href="/all_products/Dining_Room_Furniture/Dining_Benches_&_Banquettes/">Dining Benches &
+                  Banquettes</a>
+                <a href="/all_products/Dining_Room_Furniture/Buffets_&_Sideboards/">Buffets & Sideboards</a>
+                <a href="/all_products/Dining_Room_Furniture/Bar_Carts_&_Bar_Cabinets/">Bar Carts & Bar Cabinets</a>
+                <a href="/all_products/Dining_Room_Furniture/">All Dining Room Furniture</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Storage & Modular Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Storage_&_Modular_Furniture/Storage_Cabinets/">Storage Cabinets</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/TV_Stands/">TV Stands</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Bookcases_&_Shelves/">Bookcases & Shelves</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Bar_Carts_&_Bar_Cabinets/">Bar Carts & Bar
+                  Cabinets</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Buffets_&_Sideboards/">Buffets & Sideboards</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Entertainment_Center/">Entertainment Center</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Storage_Benches_&_Ottomans/">Storage Benches &
+                  Ottomans</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Dressers_&_Chests/">Dressers & Chests</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/Modular_Storage_Collections/">Modular Storage
+                  Collections</a>
+                <a href="/all_products/Storage_&_Modular_Furniture/">All Storage & Modular Furniture</a>
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Bed room Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Bed_room_Furniture/Beds_&_Headboards/">Beds & Headboards</a>
+                <a href="/all_products/Bed_room_Furniture/Dressers_&_Chests/">Dressers & Chests</a>
+                <a href="/all_products/Bed_room_Furniture/Nightstands/">Nightstands</a>
+                <a href="/all_products/Bed_room_Furniture/Bedroom_Benches/">Bedroom Benches</a>
+                <a href="/all_products/Bed_room_Furniture/Kids_Beds/">Kids Beds</a>
+                <a href="/all_products/Bed_room_Furniture/">All Bed room Furniture</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <a class="dropbtn nav-link" style="cursor: pointer; user-select: none;">Home Office Furniture</a>
+            <div class="dropdown-content ">
+              <div class="">
+                <a href="/all_products/Home_Office_Furniture/Desks/">Desks</a>
+                <a href="/all_products/Home_Office_Furniture/Office_Chairs/">Office Chairs</a>
+                <a href="/all_products/Home_Office_Furniture/Filing_Cabinets_&_Credenzas/">Filing Cabinets &
+                  Credenzas</a>
+                <a href="/all_products/Home_Office_Furniture/Bookcases_&_Shelves/">Bookcases & Shelves</a>
+                <a href="/all_products/Home_Office_Furniture/Office_Accessories/">Office Accessories</a>
+                <a href="/all_products/Home_Office_Furniture/Small_Space_Home_Office/">Small Space Home Office</a>
+                <a href="/all_products/Home_Office_Furniture/Kids_Desks_&_Desk_Chairs/">Kids Desks & Desk Chairs</a>
+                <a href="/all_products/Home_Office_Furniture/">All Home Office Furniture</a>
+
+              </div>
+            </div>
+          </div>
 
         </div>
-      </nav>
-    </div>
+      </ul>
+    </nav>
+
+
+
   </div>
+
 </header>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
 
-    const showNavbar = (toggleId, navId, bodyId, headerId) => {
-      const toggle = document.getElementById(toggleId),
 
-        nav = document.getElementById(navId),
-        bodypd = document.getElementById(bodyId),
-        headerpd = document.getElementById(headerId)
+    const hamburger = document.getElementById('hamburger');
+    const closeBtn = document.getElementById('closeBtn');
+    const navLinks = document.getElementById('navLinks');
 
-      // Validate that all variables exist
-      if (toggle && nav && bodypd && headerpd) {
-        toggle.addEventListener('click', () => {
-          // show navbar
-          nav.classList.toggle('showD')
-          // change icon
-          toggle.classList.toggle('bx-x')
-          // add padding to body
-          bodypd.classList.toggle('body-pd')
-          // add padding to header
-          headerpd.classList.toggle('body-pd')
-        })
-      }
-    }
+    hamburger.addEventListener('click', () => {
+      // hamburger.style.display = 'none';
+      closeBtn.style.display = 'block';
+      navLinks.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      // hamburger.style.display = 'block';
+      closeBtn.style.display = 'none';
+      navLinks.classList.remove('active');
+    });
 
     showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
 
@@ -331,4 +509,31 @@
 
     // Your code to run since DOM is loaded and ready
   });
+
+
+
+
+  $('#searchForm').submit(function (event) {
+    event.preventDefault();
+    var query = $('#searchBox').val()
+    console.log("searchBox", query);
+    if ($('#searchBox').val() == "") {
+      Swal.fire({
+        title: 'Search field is empty',
+        icon: "warning",
+        showDenyButton: false,
+        showCancelButton: false,
+        confirmButtonText: 'Yes',
+        denyButtonText: `No `,
+      })
+    }
+    else {
+      window.location.href = '/search/?query=' + query;
+    }
+  });
+
+
+
+
+
 </script>

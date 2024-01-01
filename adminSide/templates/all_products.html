@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+<style>
+    *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .viewBtn {
+  --primary-color: #cf987f;
+  --secondary-color: #fff;
+  --hover-color: #111;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 5px;
+  color: var(--secondary-color);
+  padding: 0.5em 1.8em;
+  /* background: var(--primary-color); */
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+  color: #a56a44;
+  /* border: 1px solid grey; */
+}
+
+.viewBtn .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewBtn .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  /* background: var(--primary-color); */
+  /* background-color: #a56a44; */
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+
+.viewBtn .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid #a56a44;
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.viewBtn:hover {
+  /* background-color: var(--hover-color); */
+  background-color: #e9cfc4;
+  /* border: 0.2px solid grey */
+}
+
+.viewBtn:hover .arrow {
+  /* background: var(--secondary-color); */
+  background: #a56a44;
+}
+
+.viewBtn:hover .arrow:before {
+  right: 0;
+}
+
+</style>
+<!-- <link rel="stylesheet" href="{% static 'css/cards.css' %}"> -->
+
+<section class="product-section bg-light container-fluid" style="margin-top: 70px;">
+
+<div class="row d-flex justify-content-center justify-content-center " id="dataList">
+  {% if data %}
+    {% for e in data %}
+
+    <div class=" col-4 m-md-3 m-1 border py-2 px-2 rounded" style="width: 20rem; padding: 0px; background-color: white;">
+      <div class="row g-0">
+
+        {% with e.images.first as first_image %}
+        {% if first_image %}
+        <div class="col-4 col-md-12 p-md-3 d-flex justify-content-center align-items-center">
+          <img src="{{ first_image.image.url }}" class="image-field rounded-md product-img w-100 h-100" alt="Product Image">
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="col-8 col-md-12">
+          <div class=" d-flex flex-column justify-content-center align-items-center">
+            <h5 class="" style="font-weight:600; font-size:large;" >{{e.name}}</h5>
+            <p class="" style="color: grey;" >{{e.category}}</p>
+            <a href="/product/{{e.id}}" >
+            
+
+              <button class="viewBtn border border-lg">
+                VIEW
+                <div class="arrow-wrapper">
+                    <div class="arrow"></div>
+            
+                </div>
+            </button>
+          </a>
+          
+        </div>
+      </div>
+      
+      </div>
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+    <p>No Product available</p>
+    {% endif %}
+  </div>
+
+
+</section>
+
+
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
+
+<script>
+
+</script>
+{% endblock %}
+
+

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # import json
 
 # Create your models here.
@@ -8,6 +9,13 @@ from django.db import models
 #     password = models.CharField(max_length=50)
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    forgot_password_token = models.CharField(max_length = 100)
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.user.username
 
 class Specification(models.Model):
     header = models.CharField(max_length=255)
@@ -18,6 +26,7 @@ class Products(models.Model):
     desc = models.TextField(blank=True, null=True)
     product_code = models.CharField(max_length=255, default="")
     category = models.CharField(max_length=255, default="")
+    subcategory = models.CharField(max_length=255, default="")
     specifications = models.ManyToManyField(Specification)
 
     

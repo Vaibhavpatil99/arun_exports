@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Product - Your Website{% endblock %}
+
+{% block content %}
+
+<style>
+  .living_room-bg {
+    background-image: url("{% static 'images/leaving-room-2.jpg' %}");
+    /* background-image: url("https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
+  }
+
+  .home_office-bg {
+    background-image: url("{% static 'images/home_office-2.jpg' %}");
+    /* background-image: url("https://images.unsplash.com/photo-1496664444929-8c75efb9546f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
+  }
+
+  .kitchen-bg {
+    background-image: url("{% static 'images/kitchen_img-2.jpg' %}");
+    /* background-image: url("https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
+
+  }
+
+
+  .img-div {
+    height: 110vh;
+    background-size: cover;
+    background-position: center;
+
+  }
+
+  .img-div div h1 {
+    font-size: 3.5rem;
+
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+    padding: 60px 60px 60px 60px;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .swiper {
+      padding: 10px 20px 10px 10px;
+    }
+
+    /* .living_room-bg {
+      background-image: url("{% static 'images/living-room-mobile-view.jpg' %}");
+    } */
+
+    .img-div {
+      height: 84vh;
+
+    }
+
+    .img-div div h1 {
+      font-size: 1.5rem;
+
+    }
+  }
+</style>
+
+<section class="about-section">
+
+  <div>
+
+    <div class="img-div living_room-bg position-relative ">
+      <div class="bg-black w-100 h-100 position-absolute opacity-50">
+      </div>
+      <div class="text-white position-relative h-100 z-1 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="">Living Room Furniture</h1>
+        <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati quidem recusandae
+          quia unde.</p>
+
+        <a href="/all_products/Living_Room_Furniture/"
+          class="border btn border-dark bg-dark text-white rounded-0 fs-4 my-3" style="width: 300px;">
+          VIEW
+        </a>
+      </div>
+      <!-- <img class="bg-img img-fluid" src="{% static 'images/leaving-room.jpg' %}" alt=""> -->
+    </div>
+    <div>
+      <!-- Swiper -->
+      <div class="swiper mySwiper ">
+        <div class="swiper-wrapper">
+          <a href="/all_products/Living_Room_Furniture/Sofas/"
+            class="text-decoration-none swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/sofa_portrait-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Sofas</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+            </div>
+          </a>
+          <a href="/all_products/Living_Room_Furniture/Accent_Chairs/" class="text-decoration-none swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/accent_chair_2-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Accent Chairs</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+            </div>
+          </a>
+          <a href="/all_products/Living_Room_Furniture/Coffee_&_Accent_Table/" class="text-decoration-none swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/coffee_accent_table-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Coffee & Accent Table</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </a>
+          <a href="/all_products/Living_Room_Furniture/TV_Stands_&_Media_Consoles/" class="text-decoration-none swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/tv_console-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Tv Stands & Media Consoles</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </a>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div>
+
+    <div class="img-div kitchen-bg  position-relative ">
+      <div class="bg-black w-100 h-100 position-absolute opacity-50">
+      </div>
+      <div class="text-white position-relative h-100 z-1 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="">Kitchen Furniture</h1>
+        <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati quidem recusandae
+          quia unde.</p>
+
+        <a href="/all_products/Kitchen_Furniture/" class="border btn border-dark bg-dark text-white rounded-0 fs-4 my-3"
+          style="width: 300px;">
+          VIEW
+        </a>
+      </div>
+      <!-- <img class="bg-img img-fluid" src="{% static 'images/leaving-room.jpg' %}" alt=""> -->
+    </div>
+    <div>
+      <!-- Swiper -->
+      <div class="swiper mySwiper ">
+        <div class="swiper-wrapper">
+          <a href="/all_products/Kitchen_Furniture/Kitchen_Islands/"
+            class="text-decoration-none swiper-slide position-relative bottom-0">
+
+              <img src="{% static 'images/sosey-interiors-YABErdnJPGc-unsplash-2.jpg' %}" alt=""
+                class="position-absolute">
+              <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+              <div
+                class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+                <h2 class="text-start fs-1">Kitchen Islands</h2>
+                <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                  quidem recusandae quia unde.</p>
+              </div>
+          </a>
+          <a href="/all_products/Kitchen_Furniture/Counter_Stools/" class="text-decoration-none swiper-slide position-relative bottom-0">
+
+            <img src="{% static 'images/stools-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Kitchen Counter Stools</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+            </div>
+          </a>
+          <a href="/all_products/Kitchen_Furniture/Kitchen_Tables/" class="text-decoration-none swiper-slide position-relative bottom-0">
+
+            <img src="{% static 'images/kitchen_table-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Kitchen Tables</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </a>
+          <a href="/all_products/Kitchen_Furniture/Dining_Chairs/" class="text-decoration-none swiper-slide position-relative bottom-0">
+
+            <img src="{% static 'images/kitche_chairs-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Dining Chairs</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </a>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div>
+
+    <div class="img-div home_office-bg  position-relative ">
+      <div class="bg-black w-100 h-100 position-absolute opacity-50">
+      </div>
+      <div class="text-white position-relative h-100 z-1 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="">Home Office Furniture</h1>
+        <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati quidem recusandae
+          quia unde.</p>
+
+        <a href="/all_products/Home_Office_Furniture/"
+          class="border btn border-dark bg-dark text-white rounded-0 fs-4 my-3" style="width: 300px;">
+          VIEW
+        </a>
+      </div>
+      <!-- <img class="bg-img img-fluid" src="{% static 'images/leaving-room.jpg' %}" alt=""> -->
+    </div>
+    <div>
+      <!-- Swiper -->
+      <div class="swiper mySwiper ">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/sofa_portrait-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Sofas</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+            </div>
+          </div>
+          <div class="swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/accent_chair_2-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Accent Chairs</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+            </div>
+          </div>
+          <div class="swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/coffee_accent_table-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Coffee & Accent Table</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </div>
+          <div class="swiper-slide position-relative bottom-0">
+            <img src="{% static 'images/tv_console-2.jpg' %}" alt="" class="position-absolute">
+            <div class="position-absolute w-100 h-100 bg-black opacity-50"></div>
+            <div
+              class="text-white position-relative h-100 z-1 w-100 d-flex flex-column justify-content-end align-items-start p-4">
+              <h2 class="text-start fs-1">Tv Stands & Media Consoles</h2>
+              <p class="text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ut numquam obcaecati
+                quidem recusandae quia unde.</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+  var swiper;
+
+  function initSwiper() {
+    if (window.innerWidth < 768) { // You can adjust this breakpoint as needed
+      swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1, // Change to 2 for mobile view
+        spaceBetween: 30, // You can adjust this value as well
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+    } else {
+      swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3, // Default value for desktop
+        spaceBetween: 60, // Default value for desktop
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+    }
+  }
+
+  // Initialize the swiper when the page loads
+  window.addEventListener('load', initSwiper);
+
+  // Update swiper when the window resizes
+  window.addEventListener('resize', function () {
+    if (swiper) {
+      swiper.destroy(); // Destroy the existing swiper instance
+    }
+    initSwiper(); // Reinitialize swiper based on screen width
+  });
+</script>
+
+
+{% endblock %}

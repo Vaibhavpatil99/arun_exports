@@ -13,10 +13,14 @@ from django.shortcuts import redirect
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
+
+from django.db.models import *
 # Create your views here.
 
 from django.shortcuts import render
 
+import uuid
+from django.conf import settings
 def about_us(request):
     return render(request, 'about.html')
 
@@ -66,8 +70,15 @@ def registration(request):
         password = request.POST.get('password')
 
         if User.objects.filter(username = username).first():
-            messages.error(request, "This username is already taken")
-            return render(request, 'register.html')
+            error_message = "This username is already taken"
+            print("This username is already taken")
+            return render(request, 'register.html', {'error_message': error_message})
+        
+        if User.objects.filter(email = email).first():
+            # messages.error(request, "This Email already exists")
+            error_message = "This Email already exists"
+            print("This Email already exists")
+            return render(request, 'register.html', {'error_message': error_message})
         print(username, email, password )
 
         reg = User.objects.create_user(username=username, password=password, email=email)
@@ -85,18 +96,20 @@ def login(request):
     print(Users)
     if request.method == 'POST':
         username = request.POST.get("username")
+        # email = request.POST.get("email")
         password = request.POST.get("password")
 
         # Validate username and password
         # print(username, password, Users[3].password ,"data")
 
+        # user = authenticate(username = username, password = password)
         user = authenticate(username = username, password = password)
-        print(user, "username")
+        print(user, "email")
         if user is not None:
             print("ok")
             auth.login(request, user)
             request.session['name'] = 'OkaySession'
-            return redirect('/products/')
+            return redirect('/')
         else:
             print("not ok")
             error_message = "Invalid username or password."
@@ -105,55 +118,137 @@ def login(request):
     else:
         return render(request, 'login.html')
 
+
+def forgotPassword(request):
+    Users=User.objects.all()
+    if request.method == 'POST':
+        email = request.POST.get("email")
+        
+        if not User.objects.filter(email = email).first():
+            print("No user found with this email.")
+            error_message = "No user found with this email."
+            # messages.error(request, "No user found with this email")
+            return render(request, 'login.html',{'error_message': error_message})
+        
+        user_obj = User.objects.get(username="patilvb")
+        token = str(uuid.uuid4())
+        print("User_obj",user_obj)
+        # profile_obj = Profile.objects.get(user=user_obj)
+        # profile_obj.forgot_password_token = token
+        # profile_obj.save()
+
+        try:
+            # Attempt to get the profile object
+            profile_obj = Profile.objects.get(user=user_obj)
+        except Profile.DoesNotExist:
+            # If the profile doesn't exist, create a new one
+            profile_obj = Profile(user=user_obj)
+            profile_obj.save()
+
+        # Update the forgot_password_token and save the profile object
+        profile_obj.forgot_password_token = token
+        profile_obj.save()
+
+        subject = "Your Forget Password Link"
+        message = f'Hi , click on the link to reset your passowrd http://127.0.0.1:8000/change-password/{token}/'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        send_mail(subject, message, email_from, recipient_list)
+        # messages.success(request, 'An email is sent.')
+        error_message = "An email is sent."
+        return render(request, 'login.html', {"error_message" : error_message})
+    
+    else:
+        return render(request, 'login.html')
+
+def changePassword(request, token):
+    context = {}
+    try:
+        profile_obj = Profile.objects.filter(forgot_password_token = token).first()
+        context = {'user_id': profile_obj.user.id}
+        print(profile_obj)
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            Confirm_password = request.POST.get('Confirm_password')
+            user_id = request.POST.get('user_id')
+            print(new_password)
+            if user_id is None:
+                messages.success(request, 'No user id found')
+                return redirect(f'/change-password/{token}/')
+            
+            if new_password != Confirm_password:
+                messages.success(request, 'New Password and Confirm Password both should be same')
+                return redirect(f'/change-password/{token}/')
+
+            user_obj = User.objects.get(id = user_id)
+            user_obj.set_password(new_password)
+            user_obj.save()
+            print("Password changed successfully")
+            return redirect('/login/')
+            
+    except Exception as e:
+        print(e)
+    return render(request, 'changePassword.html', context)
+    
+
 def logout(request):
     auth.logout(request)
     return redirect('/login/')
 
 
+def browse(request):
+    return render(request, 'browse.html')
+
 def addProducts(request):
+
     data = Products.objects.all()
-    if request.user.is_superuser:
-        if request.method == 'POST':
-            print(request.POST)
-            name = request.POST.get('name')
-            description = request.POST.get('description')
-            product_code = request.POST.get('productCode')
-            category = request.POST.get('category')
-            images = request.FILES.getlist('image')
+    if 'name' in request.session:
+        request.session.modified = True
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                print(request.POST)
+                name = request.POST.get('name')
+                description = request.POST.get('description')
+                product_code = request.POST.get('productCode')
+                category = request.POST.get('category')
+                subcategory = request.POST.get('subcategory')
+                images = request.FILES.getlist('image')
 
 
 
-            if Products.objects.filter(product_code=product_code).exists():
-                print("Product code already exists.")
-                messages.error(request, "Product code already exists.")
+                if Products.objects.filter(product_code=product_code).exists():
+                    print("Product code already exists.")
+                    messages.error(request, "Product code already exists.")
+                    return render(request, 'addProduct.html', {'data': data})
+
+                product = Products.objects.create(name=name, desc=description, category=category.replace('_', ' '), subcategory=subcategory, product_code=product_code)
+
+                for image in images:
+                    Image.objects.create(product=product, image=image)
+
+                specifications = []
+                for i in range(1, 6):  # Adjust the range based on the number of added specifications
+                    specHeader = request.POST.get(f'specification_header_{i}')
+                    specDescription = request.POST.get(f'specification_description_{i}')
+                    if specHeader and description:
+                        # specifications.append({'header': header, 'description': specDescription})
+                        specification = Specification.objects.create(header=specHeader, description=specDescription)
+                        specifications.append(specification)
+
+                print("specifications", specifications,Products)
+                for specification in specifications:
+                    product.specifications.add(specification)
+
+
                 return render(request, 'addProduct.html', {'data': data})
 
-            product = Products.objects.create(name=name, desc=description, category=category, product_code=product_code)
-
-            for image in images:
-                Image.objects.create(product=product, image=image)
-
-            specifications = []
-            for i in range(1, 6):  # Adjust the range based on the number of added specifications
-                specHeader = request.POST.get(f'specification_header_{i}')
-                specDescription = request.POST.get(f'specification_description_{i}')
-                if specHeader and description:
-                    # specifications.append({'header': header, 'description': specDescription})
-                    specification = Specification.objects.create(header=specHeader, description=specDescription)
-                    specifications.append(specification)
-
-            print("specifications", specifications,Products)
-            for specification in specifications:
-                product.specifications.add(specification)
-
-
-            return render(request, 'addProduct.html', {'data': data})
-
+            else:
+                return render(request, 'addProduct.html', {'data': data})
         else:
-            return render(request, 'addProduct.html', {'data': data})
+            return render(request, 'pageNotAvailable.html')
     else:
-        return render(request, 'pageNotAvailable.html')
-
+        response = redirect('login')
+        return response
         
 
 
@@ -184,6 +279,7 @@ def jsonProductdata(request):
                 'name': product.name,
                 'desc': product.desc,
                 'category': product.category,
+                'subcategory': product.subcategory,
                 'product_code': product.product_code,
                 'image': product.images.first().image.url if product.images.first() else None
             }
@@ -242,10 +338,71 @@ def enquirySubmit(request, product_id):
         return render(request, 'product.html')
 
     
+def all_products(request):
+
+    print("defhksuihfi")
+    data = Products.objects.all()
+    return render(request, 'all_products.html', {'data': data})
+
+    
+    
+def all_products_cat(request, category):
+
+    print("categoryhhh")
+    data = Products.objects.all()
+    print(category.replace('_', ' '), "iiii")
+    filterCategory = Products.objects.filter(category= category.replace('_', ' ')).all()
+    print(category, data, filterCategory)
+    return render(request, 'all_products.html', {'data': filterCategory})
+
+    
+def all_products_search(request):
+
+    query = request.GET.get('query', '')
+    products = Products.objects.filter(Q(name__icontains=query) | Q(category__icontains=query) | Q(subcategory__icontains=query))
+    print(products)
+    return render(request, 'all_products.html', {'data': products})
+
+    
+def all_products_cat_pro(request, category, product):
+
+    print("category, product")
+    data = Products.objects.all()
+    filterData = Products.objects.filter(category=category.replace('_', ' '), subcategory=product.replace('_', ' ')).all()
+    print(category.replace('_', ' '), product.replace('_', ' '), data, filterData)
+    return render(request, 'all_products.html', {'data': filterData})
+
     
 def enquiries(request):
-    if request.user.is_superuser:
-        enquiries = Enquiry.objects.all()
-        return render(request, 'enquiries.html', {'enquiries': enquiries})
+    if 'name' in request.session:
+        request.session.modified = True
+        if request.user.is_superuser:
+            enquiries = Enquiry.objects.all()
+            return render(request, 'enquiries.html', {'enquiries': enquiries})
+        else:
+            return render(request, 'pageNotAvailable.html')
     else:
-        return render(request, 'pageNotAvailable.html')
+        response = redirect('login')
+        return response
+    
+
+def access_management(request):
+    if 'name' in request.session:
+        request.session.modified = True
+        if request.user.is_superuser:
+            allUsers = User.objects.all()
+            return render(request, 'access_management.html', {'allUsers': allUsers})
+        else:
+            return render(request, 'pageNotAvailable.html')
+    else:
+        response = redirect('login')
+        return response
+    
+def toggle_superuser(request, user_id):
+    user = User.objects.get(pk=user_id)
+    print(user, user_id, "super")
+    user.is_superuser = not user.is_superuser
+    user.save()
+    # return JsonResponse({'status': 'success'})
+    response = redirect('access_management')
+    return response

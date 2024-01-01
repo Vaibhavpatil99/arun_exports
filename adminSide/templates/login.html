@@ -3,7 +3,6 @@
 {% block title %}Contact Us - Your Website{% endblock %}
 
 {% block content %}
-
 <style>
     .form_main {
         width: 500px;
@@ -18,6 +17,8 @@
         overflow: hidden;
     }
 
+
+
     .form_main::before {
         position: absolute;
         content: "";
@@ -30,6 +31,20 @@
         z-index: 1;
         border-radius: 30px;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+    }
+
+    @media screen and (max-width: 768px) {
+        .form_main {
+            width: 300px;
+            height: 500px;
+        }
+
+        .form_main::before {
+            width: 400px;
+            height: 400px;
+            left: -220px;
+            bottom: 70px;
+        }
     }
 
     .heading {
@@ -117,18 +132,6 @@
             {% csrf_token %}
 
             <p class="heading">Login</p>
-<!-- 
-            <div>
-                {% if error_message %}
-                <div class="border border-danger rounded p-2 " role="alert " style="z-index: 1000; position: relative; letter-spacing: normal;">
-                    {% for message in error_message %}
-                    {{ message }}
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div> -->
-
-
 
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2e2e2e"
@@ -148,13 +151,47 @@
                     </path>
                 </svg>
                 <input type="password" class="inputField" id="password" name="password" placeholder="Password">
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
 
 
-            <button type="button" id="button">Submit</button>
-            <a class="forgotLink" href="#">Forgot your password?</a>
+            <button type="submit" id="button">Submit</button>
+            <a class="forgotLink" data-bs-toggle="modal" data-bs-target="#forgotPasswordModel">Forgot your password?</a>
         </form>
     </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="forgotPasswordModel" tabindex="-1" role="dialog"
+        aria-labelledby="forgotPasswordModelTitle" aria-hidden="true" style="width: 2p;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body m-0 p-0 ">
+                    <form method="POST" class="form_main rounded" id="forgotPasswordFrm">
+                        {% csrf_token %}
+
+                        <p class="heading">Forgot your password?</p>
+
+                        <div class="inputContainer">
+                            <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="#2e2e2e" viewBox="0 0 16 16">
+                                <path
+                                    d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z">
+                                </path>
+                            </svg>
+                            <input type="email" class="inputField" name="email" id="email" placeholder="email">
+                        </div>
+
+
+                        <button type="submit" id="button">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 
@@ -166,7 +203,6 @@
 
 
 {% if error_message %}
-<!-- {% for message in error_message %} -->
 <script>
     console.log("{{ error_message }}")
     swal.fire('{{error_message}}', {
@@ -174,15 +210,33 @@
         button: "ok",
         closeOnClickOutside: false,
     })
-
 </script>
-<!-- {% endfor %} -->
 {% endif %}
 
 
 <script>
-    document.getElementById("button").addEventListener("click", function () {
-        console.log($('#ConfirmPassword').val() === $('#ConfirmPassword').val());
+
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+    });
+
+
+    // document.getElementById("button").addEventListener("click", function () {
+    $('#frm').submit(function (event) {
+        event.preventDefault();
+        // console.log($('#ConfirmPassword').val() === $('#ConfirmPassword').val());
+
+
+
+
 
         if ($('#username').val() == "") {
             Swal.fire({
@@ -221,8 +275,60 @@
             });
         }
 
+    });
 
+
+
+
+    $('#forgotPasswordFrm').submit(function (event) {
+        event.preventDefault();
+        if ($('#email').val() == "") {
+            Swal.fire({
+                title: 'Please Enter The Email',
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No `,
+            })
+        }
+        else {
+
+
+            // $('#spinner-container').show();
+            // Serialize the form data
+            var formData = $(this).serialize();
+            console.log("formData");
+            // $('#errorBox').empty();
+            // $('.btn-close').click();
+            // showAlert('Enquiry getting submitted...', 'info');
+            // Send AJAX request
+            $.ajax({
+                url: '/forgot-password/',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    // $('#spinner-container').hide();
+
+
+                    // showAlert("Enquiry submitted successfully.", 'success');
+                    console.log("formData", response);
+                    // swal.fire(response.message, {
+                    //     icon: "success",
+                    //     button: "ok",
+                    //     closeOnClickOutside: false,
+                    // })
+                },
+                error: function (xhr, status, error) {
+                    // $('#spinner-container').hide();
+                    console.error('Request failed. Status:', xhr.status);
+                }
+            });
+        }
 
     });
+
+
 </script>
 {% endblock %}

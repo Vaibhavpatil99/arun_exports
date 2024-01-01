@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-u!=gmqkfw-$gw0aqw4qpr+=7k0)qe11z0syf18kwbq6%ub*$r3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # ALLOWED_HOSTS = ['www.arunartexports.com', 'www.arunartexports.com']
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -109,6 +109,7 @@ DATABASES = {
 }
 
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'mysql.connector.django',
@@ -187,3 +188,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'patilvb1999@gmail.com'
 EMAIL_HOST_PASSWORD = 'tirebubqznpasbpr'
+
+SESSION_COOKIE_AGE = 120
